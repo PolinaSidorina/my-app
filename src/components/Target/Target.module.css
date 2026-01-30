@@ -1,0 +1,39 @@
+.targetContainer {
+  background: linear-gradient(to right, #169bf6, #00ebff);
+  border: 0.01rem solid #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0 0.5rem 0.1rem #00ebff;
+  font-family: 'Nunito';
+  font-size: 1.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.01rem solid #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0 0.5rem 0.1rem #00ebff;
+  font-family: 'Nunito';
+  font-size: 1.5rem;
+}
+
+.modal {
+  background: #00042d;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 60vw;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 1rem 0;
+}

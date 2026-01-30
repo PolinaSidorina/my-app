@@ -1,0 +1,6 @@
+.imgContainer {
+  object-fit: cover;
+  height: 10vw;
+  box-shadow: 0 0 0.5rem 0.1rem #00ebff;
+  border-radius: 50%;
+}

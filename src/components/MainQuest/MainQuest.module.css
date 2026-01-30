@@ -1,0 +1,36 @@
+.mainQuestContainer {
+  background: linear-gradient(to right, #169bf6, #00ebff);
+  border: 0.1vw solid #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 0.5rem 0.1rem #00ebff;
+  font-family: 'Nunito';
+  padding: 1.5rem;
+}
+
+.hContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  font-size: 1rem;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonContainer {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.imgContainer {
+  height: 5vw;
+  margin-right: 1rem;
+}
+.h1Container {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #00042d;
+}

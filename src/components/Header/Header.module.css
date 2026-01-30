@@ -1,0 +1,30 @@
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  font-family: 'Nunito';
+  font-size: 1rem;
+}
+
+.levelLineContainer {
+  box-shadow: 0 0 0.5rem 0.1rem #00ebff;
+  width: 100%;
+  border-radius: 1rem;
+  padding: 0.4rem 1rem;
+}
+.nameContainer {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.lvlContainer {
+  font-size: 1.5rem;
+  color: #9841e2;
+  text-shadow:
+    0.05rem 0.05rem 0 #fff,
+    0.05rem -0.05rem 0 #fff,
+    -0.05rem 0.05rem 0 #fff;
+  margin-top: 1rem;
+}
+.infoContainer {
+  width: 100%;
+}

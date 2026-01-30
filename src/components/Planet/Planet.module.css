@@ -1,0 +1,10 @@
+.planetContainer {
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.imgContainer {
+  max-width: 100%;
+  height: auto;
+}

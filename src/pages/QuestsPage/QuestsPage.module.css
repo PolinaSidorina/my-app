@@ -1,0 +1,54 @@
+@font-face {
+  src: url(../../fonts/Nunito-Bold.ttf);
+  font-family: 'Nunito';
+}
+
+.questsPageContainer {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'header'
+    'main';
+  background: linear-gradient(#0f172a, #5d62a0);
+  color: #ffff;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.headerContainer {
+  grid-area: header;
+  padding: 0 3vw;
+  padding-top: 1rem;
+}
+
+.planetsContainer {
+  position: relative;
+  height: calc(100vh - 22vh); /* высота без хедера */
+  overflow: hidden;
+}
+.planet1,
+.planet2,
+.planet3,
+.planet4 {
+  position: absolute;
+}
+.planet1 {
+  top: 0%;
+  left: 1%;
+  width: clamp(160px, 34vw, 500px);
+}
+.planet2 {
+  top: 44%;
+  left: 27%;
+  width: clamp(160px, 33vw, 500px);
+}
+.planet3 {
+  top: 0%;
+  right: 20%;
+  width: clamp(160px, 33vw, 500px);
+}
+.planet4 {
+  top: 42%;
+  right: 1%;
+  width: clamp(160px, 33vw, 500px);
+}

@@ -1,0 +1,58 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  /* outline: 1px solid red; */
+}
+
+@font-face {
+  src: url(../../fonts/Nunito-Bold.ttf);
+  font-family: 'Nunito';
+}
+
+.homePageContainer {
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-areas:
+    'header'
+    'main'
+    'buttons';
+  background: linear-gradient(#0f172a, #5d62a0);
+  color: #ffff;
+  height: 100vh;
+}
+
+.headerContainer {
+  grid-area: header;
+  padding: 0 3vw;
+  padding-top: 1rem;
+}
+
+.mainContainer {
+  grid-area: main;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.menuContainer {
+  grid-area: buttons;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1vw;
+}
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.mascotContainer {
+  object-fit: contain;
+  width: 20vw;
+}
