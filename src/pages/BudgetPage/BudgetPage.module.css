@@ -1,0 +1,83 @@
+@font-face {
+  src: url(../../fonts/Nunito-Bold.ttf);
+  font-family: 'Nunito';
+}
+
+.budgetPageContainer {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    'header'
+    'main'
+    'covers';
+  background: linear-gradient(#0f172a, #5d62a0);
+  color: #fff;
+  min-height: 100vh;
+  font-family: 'Nunito';
+  font-size: 1rem;
+  overflow: hidden;
+}
+
+.headerContainer {
+  grid-area: header;
+  padding: 0 3vw;
+  padding-top: 1rem;
+}
+
+.mainContainer {
+  grid-area: main;
+  /* display: flex; */
+  align-items: center;
+  position: relative;
+  height: auto;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  margin: 0 1vw;
+}
+
+.mascotContainer {
+  object-fit: contain;
+  height: clamp(150px, 15vw, 500px);
+}
+
+.mascotAskContainer {
+  display: flex;
+  flex-direction: column;
+}
+.bankContainer {
+  width: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.imgContainer {
+  width: 40vw;
+}
+.tContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vw;
+  position: absolute;
+}
+.textContainer {
+  font-size: clamp(3rem, 12vh, 500px);
+  color: #fff;
+  text-shadow:
+    0.2rem 0.2rem 0 #9841e2,
+    0.2rem -0.2rem 0 #9841e2,
+    -0.2rem 0.2rem 0 #9841e2;
+}
+
+.coversContainer {
+  grid-area: covers;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 1vw;
+}

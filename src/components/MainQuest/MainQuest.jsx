@@ -1,8 +1,8 @@
-import QuestIcon from '../../img/play.svg';
+import QuestIcon from '../../img/play_c.svg';
 import StartIcon from '../../img/start.svg';
 import AddCrystal from '../AddCrystal/AddCrystal';
+import Button from '../Button/Button';
 import styles from '../MainQuest/MainQuest.module.css';
-import StarQuestButton from '../StartQuestButton/StartQuestButton';
 
 const MainQuest = function () {
   return (
@@ -17,7 +17,7 @@ const MainQuest = function () {
       </div>
 
       <div className={styles.buttonContainer}>
-        <StarQuestButton image={StartIcon} />
+        <Button image={StartIcon} text="Начать квест: «Умный покупатель»" />
         <AddCrystal text="+50" />
       </div>
     </div>

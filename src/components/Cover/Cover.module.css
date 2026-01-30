@@ -1,0 +1,26 @@
+.imgContainer {
+  height: 15vw;
+}
+.coverContainer {
+  width: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+}
+.tContainer {
+  width: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.textContainer {
+  font-size: clamp(3rem, 5vh, 500px);
+  color: #fff;
+  text-shadow:
+    0.2rem 0.2rem 0 #9841e2,
+    0.2rem -0.2rem 0 #9841e2,
+    -0.2rem 0.2rem 0 #9841e2;
+}
