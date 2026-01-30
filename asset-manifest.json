@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/my-app/static/css/main.8fede189.css",
+    "main.js": "/my-app/static/js/main.f90ec7c7.js",
+    "static/media/mascot.svg": "/my-app/static/media/mascot.b21230a496e50847fe4ec946eb5c909a.svg",
+    "static/media/planet1.png": "/my-app/static/media/planet1.f7f2c6a41fca9f26add7.png",
+    "static/media/planet2.png": "/my-app/static/media/planet2.4bd63187424953fa8f0c.png",
+    "static/media/planet3.png": "/my-app/static/media/planet3.8474d647d4ba50bb1ff9.png",
+    "static/media/planet4.png": "/my-app/static/media/planet4.a5df319d1a98d94ab0d2.png",
+    "static/media/Nunito-Bold.ttf": "/my-app/static/media/Nunito-Bold.093798b5616b52d42e59.ttf",
+    "static/media/avatar.png": "/my-app/static/media/avatar.a6dc3c0aff54e58bb966.png",
+    "static/media/crystal.svg": "/my-app/static/media/crystal.72e54e7357bbeb24c3b2f9e4a72fe1e8.svg",
+    "static/media/achievement.svg": "/my-app/static/media/achievement.b364e9ef503ac80257c1eb22289112c1.svg",
+    "static/media/think.svg": "/my-app/static/media/think.9f22f8234f0eee8fad20a848e188f727.svg",
+    "static/media/think_c.svg": "/my-app/static/media/think_c.9eba1b949cd3b1d244196434a7049f60.svg",
+    "static/media/think_l.svg": "/my-app/static/media/think_l.80066bc0386460b4c75aba4866e24625.svg",
+    "static/media/quests.svg": "/my-app/static/media/quests.cb06663814f17b9c9973ce040490e8b9.svg",
+    "static/media/play.svg": "/my-app/static/media/play.80334db18650e4cb0acc64ca8b37f3fc.svg",
+    "static/media/play_c.svg": "/my-app/static/media/play_c.927c5c6a60117ce3a97c76cfbcc467f6.svg",
+    "static/media/play_l.svg": "/my-app/static/media/play_l.c0de003eff63101e48e1cca9e41c0030.svg",
+    "static/media/shop.svg": "/my-app/static/media/shop.3623fa34fdc740da2e8b53dc0b36fc88.svg",
+    "static/media/plan.svg": "/my-app/static/media/plan.e111aee1e5bb5c37e2b92e92934f179d.svg",
+    "static/media/plan_c.svg": "/my-app/static/media/plan_c.22ac39b028dddce174b24c70b217dd84.svg",
+    "static/media/plan_l.svg": "/my-app/static/media/plan_l.88236b42ffe0570cb86cae4461b20d66.svg",
+    "static/media/budget.svg": "/my-app/static/media/budget.902636a69a199576df1f3a80a525c1f7.svg",
+    "static/media/learn_c.svg": "/my-app/static/media/learn_c.dc3929ee8a6064a99d7ba5ce4f90fa44.svg",
+    "static/media/learn.svg": "/my-app/static/media/learn.76bc0b5f9ba8bee6842f7a31367a2c52.svg",
+    "static/media/learn_l.svg": "/my-app/static/media/learn_l.3910fe6432dafccd5102c95fbe203f85.svg",
+    "static/media/start.svg": "/my-app/static/media/start.52235bfc21902840594b2f72a79f314a.svg",
+    "index.html": "/my-app/index.html",
+    "main.8fede189.css.map": "/my-app/static/css/main.8fede189.css.map",
+    "main.f90ec7c7.js.map": "/my-app/static/js/main.f90ec7c7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8fede189.css",
+    "static/js/main.f90ec7c7.js"
+  ]
+}
