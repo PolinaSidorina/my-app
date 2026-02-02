@@ -3,27 +3,28 @@
   flex-direction: row;
   color: #fff;
   font-family: 'Nunito';
-  font-size: 1rem;
+  font-size: clamp(0.5rem, 1vw, 3rem);
 }
 
 .levelLineContainer {
   box-shadow: 0 0 0.5rem 0.1rem #00ebff;
   width: 100%;
   border-radius: 1rem;
-  padding: 0.4rem 1rem;
+  padding: 0.2rem 1rem;
+  font-size: clamp(0.5rem, 1vw, 3rem);
 }
 .nameContainer {
-  font-size: 1.5rem;
+  font-size: clamp(0.5rem, 1.5vw, 3rem);
   margin-bottom: 0.5rem;
 }
 .lvlContainer {
-  font-size: 1.5rem;
+  font-size: clamp(0.5rem, 1.5vw, 3rem);
   color: #9841e2;
-  text-shadow:
-    0.05rem 0.05rem 0 #fff,
-    0.05rem -0.05rem 0 #fff,
-    -0.05rem 0.05rem 0 #fff;
-  margin-top: 1rem;
+  -webkit-text-stroke: 0.15rem #fff;
+  text-stroke: 0.15rem #fff;
+
+  paint-order: stroke fill;
+  margin-top: 0.5rem;
 }
 .infoContainer {
   width: 100%;

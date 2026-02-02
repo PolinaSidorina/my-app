@@ -3,9 +3,13 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1000;
+  justify-content: center;
+  border: 0.01rem solid #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0 0.5rem 0.1rem #00ebff;
+  font-family: 'Nunito';
+  font-size: 1.5rem;
 }
 
 .modal {

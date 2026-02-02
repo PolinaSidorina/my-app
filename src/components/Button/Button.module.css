@@ -10,13 +10,11 @@
   padding: 1rem;
 }
 .imgContainer {
-  width: 8%;
+  width: clamp(10px, 2vw, 100px);
   margin-right: 1rem;
 }
 .textContainer {
   color: #00042d;
   font-family: 'Nunito';
-  font-size: 1rem;
-  height: auto;
-  width: auto;
+  font-size: clamp(0.5rem, 1vw, 3rem);
 }

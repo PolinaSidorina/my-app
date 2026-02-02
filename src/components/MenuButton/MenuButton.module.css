@@ -14,14 +14,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10vw;
-  width: 10vw;
+  width: clamp(64px, 10vw, 120px);
+  height: clamp(64px, 10vw, 120px);
 }
 
 .textContainer {
   color: #fff;
   font-family: 'Nunito';
-  font-size: 1.5rem;
+  font-size: clamp(0.9rem, 2vw, 1.5rem);
 }
 
 .iconContainer {

@@ -13,14 +13,14 @@
 
 .homePageContainer {
   display: grid;
-  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr auto;
   grid-template-areas:
     'header'
     'main'
     'buttons';
   background: linear-gradient(#0f172a, #5d62a0);
   color: #ffff;
-  height: 100vh;
+  min-height: 100dvh;
 }
 
 .headerContainer {
@@ -34,14 +34,18 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  min-height: 0; /*разрешаем сжатие, так как флекс по умолчанию запрещает его*/
+  padding: 1rem;
+  flex-wrap: wrap;
 }
 
 .menuContainer {
   grid-area: buttons;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 1vw;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem;
 }
 
 .buttonsContainer {
@@ -54,5 +58,22 @@
 
 .mascotContainer {
   object-fit: contain;
-  width: 20vw;
+  width: clamp(120px, 20vw, 260px);
+}
+
+@media (max-width: 900px) {
+  .mainContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .menuContainer {
+    justify-content: center;
+  }
+
+  .buttonsContainer {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 }
