@@ -7,12 +7,28 @@
 }
 
 .levelLineContainer {
-  box-shadow: 0 0 0.5rem 0.1rem #00ebff;
   width: 100%;
+  height: 0.8rem;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
-  padding: 0.2rem 1rem;
-  font-size: clamp(0.5rem, 1vw, 3rem);
+  overflow: hidden;
+  box-shadow: 0 0 0.5rem 0.1rem #00ebff;
+  margin-top: 0.3rem;
 }
+
+.levelLineFill {
+  height: 100%;
+  background: linear-gradient(to right, #169bf6, #00ebff);
+  border-radius: 1rem;
+  transition: width 0.4s ease;
+}
+
+.levelText {
+  font-size: clamp(0.5rem, 1vw, 1rem);
+  margin-top: 0.3rem;
+  opacity: 0.9;
+}
+
 .nameContainer {
   font-size: clamp(0.5rem, 1.5vw, 3rem);
   margin-bottom: 0.5rem;
