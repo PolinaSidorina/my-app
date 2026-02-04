@@ -21,6 +21,7 @@
   background: linear-gradient(#0f172a, #5d62a0);
   color: #ffff;
   min-height: 100dvh;
+  overflow-y: hidden;
 }
 
 .headerContainer {
@@ -45,7 +46,7 @@
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .buttonsContainer {

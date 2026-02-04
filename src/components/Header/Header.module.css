@@ -8,7 +8,7 @@
 
 .levelLineContainer {
   width: 100%;
-  height: 0.8rem;
+  height: 1rem;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
   overflow: hidden;
