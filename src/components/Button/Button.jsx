@@ -1,11 +1,10 @@
 import styles from './Button.module.css';
-const StarQuestButton = function ({ image, text }) {
+const Button = ({ text, image, onClick }) => {
   return (
-    <div className={styles.buttonContainer}>
-      <img src={image} alt="icon" className={styles.imgContainer} />
-
-      <div className={styles.textContainer}>{text}</div>
-    </div>
+    <button className={styles.buttonContainer} onClick={onClick}>
+      {image && <img src={image} alt="" />}
+      {text}
+    </button>
   );
 };
-export default StarQuestButton;
+export default Button;

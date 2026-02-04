@@ -30,6 +30,7 @@ const iconMap = {
 const QuestNode = function ({ status, style, type, onClick }) {
   const iconKey = status === 'locked' ? `${type}_l` : status === 'complited' ? `${type}_c` : type;
   const icon = iconMap[iconKey];
+
   return (
     <div className={`${styles.nodeContainer} ${styles[status]}`} style={style} onClick={onClick}>
       {icon && <img src={icon} alt={type} className={styles.icon} />}
