@@ -13,10 +13,9 @@
 }
 
 .modal {
-  background: #1e1e3f;
   border-radius: 1rem;
-  padding: 1.5rem;
-  width: 90%;
-  max-width: 450px;
+  /* padding: 1.5rem; */
+  /* width: 50%; */
+  /* max-width: 450px; */
   overflow: visible;
 }

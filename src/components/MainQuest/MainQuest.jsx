@@ -33,6 +33,11 @@ const MainQuest = function ({ mode = 'page', onClose }) {
           <div className={styles.h1Container}>{quest.title}</div>
           <div>{quest.description}</div>
         </div>
+        {mode === 'modal' && (
+          <button className={styles.close} onClick={onClose}>
+            ✕
+          </button>
+        )}
       </div>
 
       <div className={styles.buttonContainer}>
@@ -45,7 +50,6 @@ const MainQuest = function ({ mode = 'page', onClose }) {
             }
           }}
         />
-        <AddCrystal text={`+${quest.reward}`} />
         {mode === 'modal' && (
           <Button
             text="Завершить квест"
@@ -55,13 +59,8 @@ const MainQuest = function ({ mode = 'page', onClose }) {
             }}
           />
         )}
+        <AddCrystal text={`+${quest.reward}`} />
       </div>
-
-      {mode === 'modal' && (
-        <button className={styles.close} onClick={onClose}>
-          ✕
-        </button>
-      )}
     </div>
   );
 };

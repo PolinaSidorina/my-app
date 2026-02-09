@@ -13,6 +13,7 @@
   flex-direction: row;
   justify-content: left;
   font-size: clamp(0.5rem, 1vw, 3rem);
+  margin-top: 1rem;
 }
 
 .textContainer {
@@ -25,6 +26,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
 
   justify-content: space-between;
 }
@@ -37,4 +39,19 @@
   font-size: clamp(1.1rem, 2vw, 1.5rem);
   margin-bottom: 1rem;
   color: #00042d;
+}
+.close {
+  all: unset;
+  cursor: pointer;
+
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+
+  width: 2.2rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  text-align: center;
+
+  border-radius: 50%;
 }

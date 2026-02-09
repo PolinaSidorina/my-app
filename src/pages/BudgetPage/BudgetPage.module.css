@@ -112,3 +112,11 @@
     gap: 2rem;
   }
 }
+
+@media (min-width: 901px) {
+  .budgetPageContainer {
+    height: 100dvh;
+    min-height: unset;
+    overflow: hidden;
+  }
+}

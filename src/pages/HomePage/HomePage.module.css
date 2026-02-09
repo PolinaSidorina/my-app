@@ -78,3 +78,14 @@
     gap: 1rem;
   }
 }
+
+@media (min-width: 901px) {
+  .homePageContainer {
+    height: 100dvh;
+    min-height: unset;
+    overflow: hidden;
+  }
+  .mainContainer {
+    overflow: hidden;
+  }
+}
