@@ -18,59 +18,51 @@ const QuestPlayPage = function () {
   } = useContext(QuestContext);
 
   const navigate = useNavigate();
-
-  // вычисляем безопасно
   const steps = currentQuest?.steps || [];
   const step = steps[questStep];
 
-  // 🔹 редирект если квеста нет
+  // Редирект если нет квеста
   useEffect(() => {
     if (!currentQuest) {
       navigate('/quests');
     }
   }, [currentQuest, navigate]);
 
-  // 🔹 добавляем фини при distributeMoney
+  // Устанавливаем бюджет для distributeMoney
   useEffect(() => {
     if (!step) return;
-    if (step.type !== 'action') return;
-    if (step.action !== 'distributeMoney') return;
-    // if (step.type === 'action' && step.action === 'distributeMoney') {
+    if (step.type !== 'action' || step.action !== 'distributeMoney') return;
     if (actionState.distributeMoney) return;
-    const required = step.requiredTotal;
-
-    if (budget < required) {
-      setBudget(required);
+    if (budget < step.requiredTotal) {
+      setBudget(step.requiredTotal);
     }
-    // }
-  }, [step, actionState, budget, setBudget]);
+  }, [step, actionState.distributeMoney, budget, setBudget]);
 
-  // 🔹 проверяем выполнение action
+  // Обрабатываем завершение action
   useEffect(() => {
     if (!step) return;
     if (step.type !== 'action') return;
 
     const isDone = actionState[step.action];
     if (!isDone) return;
-    if (currentQuestId) {
-      saveQuestProgress(currentQuestId, questStep + 1);
-    }
-    setQuestStep(prev => {
-      if (prev < steps.length - 1) {
-        return prev + 1;
-      }
-      return prev;
-    });
 
-    // Сбрасываем actionState только для текущего действия
+    console.log('✅ Action completed:', step.action, 'Step:', questStep);
+
+    // Переходим на следующий шаг
+    if (questStep < steps.length - 1) {
+      saveQuestProgress(currentQuestId, questStep + 1);
+      setQuestStep(questStep + 1);
+    }
+
+    // Сбрасываем только выполненное действие
     setActionState(prev => {
       const newState = { ...prev };
       delete newState[step.action];
       return newState;
     });
-  }, [actionState, step, steps.length]);
+  }, [actionState, step, questStep, steps.length, currentQuestId, saveQuestProgress, setQuestStep]);
 
-  // теперь можно return
+  // Если нет шага - завершаем квест
   if (!currentQuest) return null;
   if (!step) {
     completeQuest(currentQuest.id);
@@ -80,7 +72,7 @@ const QuestPlayPage = function () {
   const next = () => {
     if (questStep < steps.length - 1) {
       saveQuestProgress(currentQuest.id, questStep + 1);
-      setQuestStep(prev => prev + 1);
+      setQuestStep(questStep + 1);
     } else {
       completeQuest(currentQuest.id);
     }
