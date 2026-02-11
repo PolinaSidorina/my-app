@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import Cover from '../../components/Cover/Cover';
 import Header from '../../components/Header/Header';
@@ -37,6 +38,22 @@ const BudgetPage = function () {
   };
   const canAdd = remaining >= STEP;
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const handleDistribute = () => {
+    if (remaining !== 0) return;
+    distributeBudget(allocation);
+    setAllocation({
+      needs: 0,
+      wants: 0,
+      savings: 0,
+      good: 0,
+    });
+    if (location.state?.fromQuest) {
+      navigate('/play');
+    }
+  };
+
   return (
     <div className={styles.budgetPageContainer}>
       <div className={styles.headerContainer}>
@@ -51,20 +68,7 @@ const BudgetPage = function () {
           <img src={Crystals} alt="crystal" className={styles.imgContainer} />
           <div className={styles.tContainer}>
             <div className={styles.textContainer}>{remaining}</div>
-            <Button
-              image={SaveIcon}
-              text="Сохранить выбор"
-              onClick={() => {
-                if (remaining !== 0) return;
-                distributeBudget(allocation);
-                setAllocation({
-                  needs: 0,
-                  wants: 0,
-                  savings: 0,
-                  good: 0,
-                });
-              }}
-            />
+            <Button image={SaveIcon} text="Сохранить выбор" onClick={handleDistribute} />
           </div>
         </div>
         <Target />

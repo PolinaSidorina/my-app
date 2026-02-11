@@ -13,13 +13,14 @@ export const QuestProvider = ({ children }) => {
   // 2. Основные состояния
   const safeBalance =
     typeof saved.balance === 'number' && !Number.isNaN(saved.balance) ? saved.balance : 0;
+
   const safeBudget =
     typeof saved.budget === 'number' && !Number.isNaN(saved.budget) ? saved.budget : 0;
 
   const [balance, setBalance] = useState(safeBalance);
   const [budget, setBudget] = useState(safeBudget);
   const [completedQuests, setCompletedQuests] = useState(saved.completedQuests ?? []);
-  const [currentQuestId, setCurrentQuestId] = useState(null);
+  const [currentQuestId, setCurrentQuestId] = useState(saved.currentQuestId ?? null);
   const safeGoal = saved.goal ?? null;
   const [goal, setGoal] = useState(safeGoal);
   const safeCovers = saved.covers ?? {
@@ -29,9 +30,19 @@ export const QuestProvider = ({ children }) => {
     good: 0,
   };
   const [covers, setCovers] = useState(safeCovers);
+
   const canDistribute = budget > 0;
 
-  const [questStep, setQuestStep] = useState(0);
+  const [questStep, setQuestStep] = useState(
+    saved.currentQuestId && saved.questProgressMap?.[saved.currentQuestId]
+      ? saved.questProgressMap[saved.currentQuestId]
+      : 0
+  );
+
+  const [actionState, setActionState] = useState({});
+
+  const [questProgressMap, setQuestProgressMap] = useState(saved.questProgressMap ?? {});
+
   // 3. Сохраняем прогресс
   useEffect(() => {
     localStorage.setItem(
@@ -42,9 +53,11 @@ export const QuestProvider = ({ children }) => {
         completedQuests,
         covers,
         goal,
+        questProgressMap,
+        currentQuestId,
       })
     );
-  }, [balance, budget, completedQuests, covers, goal]);
+  }, [balance, budget, completedQuests, covers, goal, questProgressMap, currentQuestId]);
 
   // 4. Уровень и прогресс
   const level = Math.floor(balance / LEVEL_STEP);
@@ -55,6 +68,22 @@ export const QuestProvider = ({ children }) => {
 
   // 6. Следующий доступный квест
   const nextQuest = quests.find(q => !completedQuests.includes(q.id)) ?? null;
+
+  const saveQuestProgress = (questId, step) => {
+    setQuestProgressMap(prev => ({
+      ...prev,
+      [questId]: step,
+    }));
+  };
+  const handleSetQuestStep = newStep => {
+    setQuestStep(newStep);
+    if (currentQuestId) {
+      setQuestProgressMap(prev => ({
+        ...prev,
+        [currentQuestId]: newStep,
+      }));
+    }
+  };
 
   // 7. Завершение квеста
   const completeQuest = questId => {
@@ -70,8 +99,14 @@ export const QuestProvider = ({ children }) => {
       const safePrev = Number.isFinite(prev) ? prev : 0;
       return safePrev + quest.reward;
     });
+    setQuestProgressMap(prev => {
+      const newMap = { ...prev };
+      delete newMap[questId];
+      return newMap;
+    });
     setCurrentQuestId(null);
     setQuestStep(0);
+    setActionState({});
   };
   // 8. Очистка бюджета
   const clearBudget = () => {
@@ -82,13 +117,23 @@ export const QuestProvider = ({ children }) => {
     const total = Object.values(allocation).reduce((a, b) => a + b, 0);
     if (total === 0) return;
     if (total > budget) return;
+
     setCovers(prev => ({
       needs: prev.needs + allocation.needs,
       wants: prev.wants + allocation.wants,
       savings: prev.savings + allocation.savings,
       good: prev.good + allocation.good,
     }));
+
     setBudget(0);
+
+    //если квест активен-отмечаем выполнение
+    if (currentQuestId) {
+      setActionState(prev => ({
+        ...prev,
+        distributeMoney: true,
+      }));
+    }
   };
 
   const createGoal = newGoal => {
@@ -108,6 +153,18 @@ export const QuestProvider = ({ children }) => {
     setGoal(null);
   };
 
+  const startQuest = id => {
+    setCurrentQuestId(id);
+    const hasSavedProgress =
+      questProgressMap[id] !== undefined &&
+      questProgressMap[id] !== null &&
+      questProgressMap[id] > 0;
+
+    const savedProgress = hasSavedProgress ? questProgressMap[id] : 0;
+    setQuestStep(savedProgress);
+    setActionState({});
+  };
+
   return (
     <QuestContext.Provider
       value={{
@@ -118,6 +175,7 @@ export const QuestProvider = ({ children }) => {
         progress,
         goal,
         questStep,
+        actionState,
 
         completedQuests,
 
@@ -131,7 +189,10 @@ export const QuestProvider = ({ children }) => {
         canDistribute,
         createGoal,
         clearGoal,
-        setQuestStep,
+        setQuestStep: handleSetQuestStep,
+        setActionState,
+        questProgressMap,
+        saveQuestProgress,
       }}
     >
       {children}

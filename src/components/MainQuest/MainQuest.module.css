@@ -54,3 +54,17 @@
 
   border-radius: 50%;
 }
+
+.completedRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.completedText {
+  display: flex;
+  align-items: center;
+  color: #57fe94;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+}

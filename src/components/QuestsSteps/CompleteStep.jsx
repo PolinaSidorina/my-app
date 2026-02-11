@@ -3,23 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { QuestContext } from '../../context/QuestContext';
 import Button from '../Button/Button';
 
-const InfoStep = ({ step, next }) => {
+const CompleteStep = ({ step, next }) => {
   const { completeQuest, currentQuest } = useContext(QuestContext);
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    if (step.type === 'complete') {
-      completeQuest(currentQuest.id);
-      navigate('/quests');
-    } else {
-      next();
-    }
-  };
   return (
     <div>
       <div>{step.text}</div>
-      <Button text={`${step.type === 'complete' ? 'Завершить' : 'Далее'}`} onClick={handleClick} />
+      <Button
+        text="Завершить"
+        onClick={() => {
+          // completeQuest(currentQuest.id);
+          next();
+          navigate('/quests');
+        }}
+      />
     </div>
   );
 };
-export default InfoStep;
+export default CompleteStep;

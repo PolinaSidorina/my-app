@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { QuestContext } from '../../context/QuestContext';
 import learn from '../../img/learn.svg';
 import plan from '../../img/plan.svg';
@@ -8,7 +9,6 @@ import think from '../../img/think.svg';
 import AddCrystal from '../AddCrystal/AddCrystal';
 import Button from '../Button/Button';
 import styles from '../MainQuest/MainQuest.module.css';
-import { useNavigate } from 'react-router-dom';
 
 const MainQuest = function ({ mode = 'page', onClose }) {
   const iconMap = {
@@ -18,13 +18,28 @@ const MainQuest = function ({ mode = 'page', onClose }) {
     plan,
   };
 
-  const { currentQuest, nextQuest, setCurrentQuestId, completeQuest } = useContext(QuestContext);
+  const {
+    currentQuest,
+    nextQuest,
+    setCurrentQuestId,
+    completeQuest,
+    questProgressMap,
+    completedQuests,
+  } = useContext(QuestContext);
   const navigate = useNavigate();
   const quest = mode === 'modal' ? currentQuest : nextQuest;
   if (!quest) return null;
 
   const isInProgress = mode === 'modal';
+  const isCompleted = completedQuests?.includes(quest.id);
 
+  const hasProgress =
+    questProgressMap && questProgressMap[quest.id] !== undefined && questProgressMap[quest.id] > 0;
+  const buttonText = isInProgress
+    ? 'Продолжить квест'
+    : hasProgress
+      ? `Продолжить квест: «${quest.title}»`
+      : `Начать квест: «${quest.title}»`;
   return (
     <div className={styles.mainQuestContainer}>
       <div className={styles.hContainer}>
@@ -42,26 +57,27 @@ const MainQuest = function ({ mode = 'page', onClose }) {
       </div>
 
       <div className={styles.buttonContainer}>
-        <Button
-          image={StartIcon}
-          text={isInProgress ? 'Продолжить квест' : `Начать квест: «${quest.title}»`}
-          onClick={() => {
-            if (!isInProgress) {
-              setCurrentQuestId(quest.id);
-            }
-            navigate('/play');
-          }}
-        />
-        {mode === 'modal' && (
-          <Button
-            text="Завершить квест"
-            onClick={() => {
-              completeQuest(quest.id);
-              onClose?.();
-            }}
-          />
+        {!isCompleted ? (
+          <>
+            <Button
+              image={StartIcon}
+              text={buttonText}
+              onClick={() => {
+                if (!isInProgress) {
+                  setCurrentQuestId(quest.id);
+                }
+                navigate('/play');
+                onClose?.();
+              }}
+            />
+            <AddCrystal text={`+${quest.reward}`} />
+          </>
+        ) : (
+          <div className={styles.completedRow}>
+            <span className={styles.completedText}>✓ Пройдено</span>
+            <AddCrystal text={`+${quest.reward}`} />
+          </div>
         )}
-        <AddCrystal text={`+${quest.reward}`} />
       </div>
     </div>
   );
