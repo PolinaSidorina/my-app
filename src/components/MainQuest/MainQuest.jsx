@@ -36,7 +36,9 @@ const MainQuest = function ({ mode = 'page', onClose }) {
   const hasProgress =
     questProgressMap && questProgressMap[quest.id] !== undefined && questProgressMap[quest.id] > 0;
   const buttonText = isInProgress
-    ? 'Продолжить квест'
+    ? hasProgress
+      ? `Продолжить квест`
+      : `Начать квест`
     : hasProgress
       ? `Продолжить квест: «${quest.title}»`
       : `Начать квест: «${quest.title}»`;
