@@ -8,6 +8,7 @@ import think from '../../img/think.svg';
 import AddCrystal from '../AddCrystal/AddCrystal';
 import Button from '../Button/Button';
 import styles from '../MainQuest/MainQuest.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const MainQuest = function ({ mode = 'page', onClose }) {
   const iconMap = {
@@ -18,7 +19,7 @@ const MainQuest = function ({ mode = 'page', onClose }) {
   };
 
   const { currentQuest, nextQuest, setCurrentQuestId, completeQuest } = useContext(QuestContext);
-
+  const navigate = useNavigate();
   const quest = mode === 'modal' ? currentQuest : nextQuest;
   if (!quest) return null;
 
@@ -48,6 +49,7 @@ const MainQuest = function ({ mode = 'page', onClose }) {
             if (!isInProgress) {
               setCurrentQuestId(quest.id);
             }
+            navigate('/play');
           }}
         />
         {mode === 'modal' && (

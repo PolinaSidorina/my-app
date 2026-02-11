@@ -13,7 +13,7 @@
 
 .homePageContainer {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   grid-template-areas:
     'header'
     'main'
@@ -21,7 +21,8 @@
   background: linear-gradient(#0f172a, #5d62a0);
   color: #ffff;
   min-height: 100dvh;
-  overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .headerContainer {
@@ -33,11 +34,11 @@
 .mainContainer {
   grid-area: main;
   display: flex;
-  align-items: center;
   justify-content: space-around;
-  min-height: 0; /*разрешаем сжатие, так как флекс по умолчанию запрещает его*/
+  align-items: flex-start;
   padding: 1rem;
   flex-wrap: wrap;
+  overflow: visible;
 }
 
 .menuContainer {
@@ -82,7 +83,6 @@
 @media (min-width: 901px) {
   .homePageContainer {
     height: 100dvh;
-    min-height: unset;
     overflow: hidden;
   }
   .mainContainer {

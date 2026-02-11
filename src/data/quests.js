@@ -10,6 +10,22 @@ export const quests = [
     x: '7%',
     y: '10%',
     type: 'learn',
+
+    steps: [
+      {
+        type: 'info',
+        text: 'Фини — это внутренняя валюта приложения.',
+      },
+      {
+        type: 'highlight',
+        target: 'balance',
+        text: 'Здесь отображается твой баланс.',
+      },
+      {
+        type: 'complete',
+        text: 'Отлично! Ты готов(а) зарабатывать Фини.',
+      },
+    ],
   },
   {
     id: 2,
@@ -21,6 +37,25 @@ export const quests = [
     x: '11%',
     y: '25%',
     type: 'learn',
+    steps: [
+      {
+        type: 'info',
+        text: 'Чтобы управлять деньгами, их нужно распределять.',
+      },
+      {
+        type: 'info',
+        text: 'У тебя есть 4 конверта: Накопления, Покупки, Развлечения и Запас.',
+      },
+      {
+        type: 'highlight',
+        target: 'covers',
+        text: 'Вот твои конверты.',
+      },
+      {
+        type: 'complete',
+        text: 'Теперь ты знаешь, где живут твои Фини.',
+      },
+    ],
   },
   {
     id: 3,
@@ -32,6 +67,22 @@ export const quests = [
     x: '19%',
     y: '29%',
     type: 'play',
+    steps: [
+      {
+        type: 'info',
+        text: 'Ты получил 100 Фини. Распредели их по конвертам.',
+      },
+      {
+        type: 'action',
+        action: 'distributeMoney',
+        requiredTotal: 100,
+        text: 'Разложи деньги так, чтобы сумма была 100.',
+      },
+      {
+        type: 'complete',
+        text: 'Отлично! Деньги любят порядок.',
+      },
+    ],
   },
   {
     id: 4,
@@ -44,6 +95,26 @@ export const quests = [
     x: '24%',
     y: '45%',
     type: 'plan',
+    steps: [
+      {
+        type: 'info',
+        text: 'Цель помогает не тратить всё сразу.',
+      },
+      {
+        type: 'highlight',
+        target: 'target',
+        text: 'Здесь отображается твоя цель.',
+      },
+      {
+        type: 'action',
+        action: 'createGoal',
+        text: 'Создай цель и укажи сумму.',
+      },
+      {
+        type: 'complete',
+        text: 'Ты сделал первый шаг к мечте.',
+      },
+    ],
   },
   {
     id: 5,
@@ -56,6 +127,29 @@ export const quests = [
     x: '31%',
     y: '60%',
     type: 'play',
+    steps: [
+      {
+        type: 'info',
+        text: 'Ты хочешь купить наушники за 80 Фини.',
+      },
+      {
+        type: 'choice',
+        question: 'Что ты сделаешь?',
+        options: [
+          { text: 'Куплю сразу', effect: 'minusSavings' },
+          { text: 'Проверю, хватает ли в конверте Покупки', correct: true },
+          { text: 'Возьму из Запаса', effect: 'risk' },
+        ],
+      },
+      {
+        type: 'info',
+        text: 'Всегда проверяй, из какого конверта ты тратишь.',
+      },
+      {
+        type: 'complete',
+        text: 'Ты становишься осознанным покупателем.',
+      },
+    ],
   },
   {
     id: 6,
@@ -67,6 +161,21 @@ export const quests = [
     x: '40%',
     y: '70%',
     type: 'think',
+    steps: [
+      {
+        type: 'info',
+        text: 'Ты дал 100 Фини за покупку стоимостью 73 Фини.',
+      },
+      {
+        type: 'calculation',
+        question: 'Сколько сдачи ты должен получить?',
+        correctAnswer: 27,
+      },
+      {
+        type: 'complete',
+        text: 'Ты внимателен к своим деньгам!',
+      },
+    ],
   },
   {
     id: 7,
@@ -78,6 +187,25 @@ export const quests = [
     x: '47%',
     y: '55%',
     type: 'play',
+    steps: [
+      {
+        type: 'info',
+        text: 'Товар стоит 200 Фини. Скидка 25%.',
+      },
+      {
+        type: 'calculation',
+        question: 'Сколько ты заплатишь?',
+        correctAnswer: 150,
+      },
+      {
+        type: 'info',
+        text: 'Скидка выгодна только если покупка тебе действительно нужна.',
+      },
+      {
+        type: 'complete',
+        text: 'Ты разобрался в процентах!',
+      },
+    ],
   },
   {
     id: 8,
@@ -90,6 +218,25 @@ export const quests = [
     x: '54%',
     y: '37%',
     type: 'think',
+    steps: [
+      {
+        type: 'info',
+        text: 'Ты занял 100 Фини под 20% комиссии.',
+      },
+      {
+        type: 'calculation',
+        question: 'Сколько придётся вернуть?',
+        correctAnswer: 120,
+      },
+      {
+        type: 'info',
+        text: 'Долг всегда возвращается больше, чем берёшь.',
+      },
+      {
+        type: 'complete',
+        text: 'Теперь ты понимаешь цену займа.',
+      },
+    ],
   },
   {
     id: 9,
@@ -102,6 +249,30 @@ export const quests = [
     x: '61%',
     y: '20%',
     type: 'think',
+    steps: [
+      {
+        type: 'info',
+        text: 'У тебя есть 200 Фини для вложений.',
+      },
+      {
+        type: 'choice',
+        question: 'Куда вложить?',
+        options: [
+          { text: 'Низкий риск — 5% доход', effect: 'safe' },
+          { text: 'Средний риск — 15%', effect: 'medium' },
+          { text: 'Высокий риск — 40%', effect: 'high' },
+        ],
+      },
+      {
+        type: 'timer',
+        duration: 3,
+        text: 'Смотрим, что произойдёт...',
+      },
+      {
+        type: 'complete',
+        text: 'Доход зависит от риска.',
+      },
+    ],
   },
   {
     id: 10,
@@ -113,6 +284,25 @@ export const quests = [
     x: '68%',
     y: '35%',
     type: 'think',
+    steps: [
+      {
+        type: 'info',
+        text: 'Ты вложил 100 Фини.',
+      },
+      {
+        type: 'timer',
+        duration: 5,
+        text: 'Иногда нужно просто подождать.',
+      },
+      {
+        type: 'info',
+        text: 'Через время деньги могут вырасти.',
+      },
+      {
+        type: 'complete',
+        text: 'Терпение — часть финансовой стратегии.',
+      },
+    ],
   },
   {
     id: 11,
@@ -124,6 +314,21 @@ export const quests = [
     x: '75%',
     y: '50%',
     type: 'plan',
+    steps: [
+      {
+        type: 'info',
+        text: 'Финансовая подушка — это запас на 3 месяца.',
+      },
+      {
+        type: 'calculation',
+        question: 'Если тебе нужно 200 Фини в месяц, сколько нужно накопить на 3 месяца?',
+        correctAnswer: 600,
+      },
+      {
+        type: 'complete',
+        text: 'Теперь ты защищён от неожиданностей.',
+      },
+    ],
   },
   {
     id: 12,
@@ -135,5 +340,29 @@ export const quests = [
     x: '83%',
     y: '60%',
     type: 'plan',
+    steps: [
+      {
+        type: 'info',
+        text: 'Твой доход — 500 Фини.',
+      },
+      {
+        type: 'action',
+        action: 'monthlyPlanning',
+        requiredTotal: 500,
+        text: 'Распредели доход по конвертам.',
+      },
+      {
+        type: 'choice',
+        question: 'Ты оставил деньги на накопления?',
+        options: [
+          { text: 'Да', correct: true },
+          { text: 'Нет', correct: false },
+        ],
+      },
+      {
+        type: 'complete',
+        text: 'Ты стал финансовым мастером.',
+      },
+    ],
   },
 ];

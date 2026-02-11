@@ -20,7 +20,8 @@ export const QuestProvider = ({ children }) => {
   const [budget, setBudget] = useState(safeBudget);
   const [completedQuests, setCompletedQuests] = useState(saved.completedQuests ?? []);
   const [currentQuestId, setCurrentQuestId] = useState(null);
-
+  const safeGoal = saved.goal ?? null;
+  const [goal, setGoal] = useState(safeGoal);
   const safeCovers = saved.covers ?? {
     needs: 0,
     wants: 0,
@@ -29,6 +30,8 @@ export const QuestProvider = ({ children }) => {
   };
   const [covers, setCovers] = useState(safeCovers);
   const canDistribute = budget > 0;
+
+  const [questStep, setQuestStep] = useState(0);
   // 3. Сохраняем прогресс
   useEffect(() => {
     localStorage.setItem(
@@ -38,9 +41,10 @@ export const QuestProvider = ({ children }) => {
         budget,
         completedQuests,
         covers,
+        goal,
       })
     );
-  }, [balance, budget, completedQuests, covers]);
+  }, [balance, budget, completedQuests, covers, goal]);
 
   // 4. Уровень и прогресс
   const level = Math.floor(balance / LEVEL_STEP);
@@ -67,6 +71,7 @@ export const QuestProvider = ({ children }) => {
       return safePrev + quest.reward;
     });
     setCurrentQuestId(null);
+    setQuestStep(0);
   };
   // 8. Очистка бюджета
   const clearBudget = () => {
@@ -86,6 +91,23 @@ export const QuestProvider = ({ children }) => {
     setBudget(0);
   };
 
+  const createGoal = newGoal => {
+    setCovers(prev => {
+      if (!goal) return prev;
+      const spent = goal.targetAmount;
+      const rest = Math.max(0, prev.savings - spent);
+      return {
+        ...prev,
+        savings: rest,
+      };
+    });
+    setGoal(newGoal);
+  };
+
+  const clearGoal = () => {
+    setGoal(null);
+  };
+
   return (
     <QuestContext.Provider
       value={{
@@ -94,6 +116,8 @@ export const QuestProvider = ({ children }) => {
         covers,
         level,
         progress,
+        goal,
+        questStep,
 
         completedQuests,
 
@@ -105,6 +129,9 @@ export const QuestProvider = ({ children }) => {
         setCurrentQuestId,
         setBudget,
         canDistribute,
+        createGoal,
+        clearGoal,
+        setQuestStep,
       }}
     >
       {children}
