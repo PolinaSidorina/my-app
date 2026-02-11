@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import StepRenderer from '../../components/QuestsSteps/StepRenderer';
 import { QuestContext } from '../../context/QuestContext';
 
 const QuestPlayPage = function () {
@@ -28,8 +29,7 @@ const QuestPlayPage = function () {
   return (
     <div>
       <div>{currentQuest.title}</div>
-      <div>{step.text}</div>
-      <button onClick={next}>{questStep === steps.length - 1 ? 'Завершить' : 'Далее'}</button>
+      <StepRenderer step={step} next={next} />
     </div>
   );
 };

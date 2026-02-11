@@ -5,6 +5,7 @@ import gift_1 from '../../img/gift_1.svg';
 import gift_2 from '../../img/gift_2.svg';
 import gift_3 from '../../img/gift_3.svg';
 import gift_4 from '../../img/gift_4.svg';
+import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import styles from '../Target/Target.module.css';
 
@@ -66,54 +67,58 @@ const Target = function () {
   return (
     <>
       <div className={styles.targetContainer}>
-        <img src={visual.gift} alt="goal" className={styles.gift} />
+        {/* <img src={visual.gift} alt="goal" className={styles.gift} /> */}
         {state === TARGET_STATES.NO_TARGET && (
-          <button onClick={() => setIsModalOpen(true)}>Создать цель</button>
+          <Button text="Создать цель" onClick={() => setIsModalOpen(true)} />
         )}{' '}
         {state !== TARGET_STATES.NO_TARGET && (
-          <div className={styles.textContainer}>
-            <div className={styles.title}>{goal.title}</div>
-            <div className={styles.progress}>
-              {Math.min(currentAmount, goal.targetAmount)} / {goal.targetAmount}
+          <>
+            <img src={visual.gift} alt="goal" className={styles.gift} />
+            <div className={styles.textContainer}>
+              <div className={styles.title}>{goal.title}</div>
+              <div className={styles.progress}>
+                {Math.min(currentAmount, goal.targetAmount)} / {goal.targetAmount}
+              </div>
+              {state === TARGET_STATES.DONE && (
+                <Button text="Новая цель" onClick={() => setIsModalOpen(true)} />
+              )}
             </div>
-            {state === TARGET_STATES.DONE && (
-              <button className={styles.newGoalBtn} onClick={() => setIsModalOpen(true)}>
-                Новая цель
-              </button>
-            )}
-          </div>
+          </>
         )}
       </div>
 
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
-          <p>Новая цель</p>
+          <div className={styles.container}>
+            <div>Новая цель</div>
 
-          <input
-            className={styles.input}
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            placeholder="Например: Велосипед"
-          />
-          <input
-            className={styles.input}
-            type="number"
-            value={amount}
-            onChange={e => setAmount(e.target.value)}
-            placeholder="Сумма"
-          />
+            <input
+              className={styles.input}
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              placeholder="Например: Велосипед"
+            />
+            <input
+              className={styles.input}
+              type="number"
+              value={amount}
+              onChange={e => setAmount(e.target.value)}
+              placeholder="Сумма"
+            />
 
-          <button
-            disabled={!title || !amount}
-            onClick={() => {
-              createGoal({ title, targetAmount: Number(amount) });
-              setIsModalOpen(false);
-              setTitle('');
-              setAmount('');
-            }}
-          >
-            Создать
-          </button>
+            <Button
+              text="Создать"
+              disabled={!title.trim() || !amount}
+              onClick={() => {
+                if (title.trim() && amount) {
+                  createGoal({ title: title.trim(), targetAmount: Number(amount) });
+                  setIsModalOpen(false);
+                  setTitle('');
+                  setAmount('');
+                }
+              }}
+            />
+          </div>
         </Modal>
       )}
     </>
