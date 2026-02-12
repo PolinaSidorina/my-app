@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/my-app/static/css/main.09e89ac5.css",
-    "main.js": "/my-app/static/js/main.49e54ba7.js",
+    "main.css": "/my-app/static/css/main.25a9e0e6.css",
+    "main.js": "/my-app/static/js/main.026c1961.js",
     "static/media/mascot.svg": "/my-app/static/media/mascot.b21230a496e50847fe4ec946eb5c909a.svg",
     "static/media/mascot_sad.svg": "/my-app/static/media/mascot_sad.8b32b2b94de0cd80c8268b4cf13073c0.svg",
     "static/media/gift_3.svg": "/my-app/static/media/gift_3.7907c4322954378c93c52b38e65b4e11.svg",
@@ -40,11 +40,11 @@
     "static/media/start.svg": "/my-app/static/media/start.52235bfc21902840594b2f72a79f314a.svg",
     "static/media/save.svg": "/my-app/static/media/save.c47cb16619b48fe92054df4188a41a07.svg",
     "index.html": "/my-app/index.html",
-    "main.09e89ac5.css.map": "/my-app/static/css/main.09e89ac5.css.map",
-    "main.49e54ba7.js.map": "/my-app/static/js/main.49e54ba7.js.map"
+    "main.25a9e0e6.css.map": "/my-app/static/css/main.25a9e0e6.css.map",
+    "main.026c1961.js.map": "/my-app/static/js/main.026c1961.js.map"
   },
   "entrypoints": [
-    "static/css/main.09e89ac5.css",
-    "static/js/main.49e54ba7.js"
+    "static/css/main.25a9e0e6.css",
+    "static/js/main.026c1961.js"
   ]
 }
