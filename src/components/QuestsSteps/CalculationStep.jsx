@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Button from '../Button/Button';
+import styles from './Styles.module.css';
 
 const CalculationStep = ({ step, next }) => {
   const [value, setValue] = useState('');
@@ -14,7 +15,7 @@ const CalculationStep = ({ step, next }) => {
 
   return (
     <div>
-      <div>{step.question}</div>
+      <div className={styles.infoContainer}>{step.question}</div>
       <input
         type="number"
         value={value}

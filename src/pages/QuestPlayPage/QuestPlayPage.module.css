@@ -1,0 +1,28 @@
+.questContainer {
+  background: linear-gradient(#0f172a, #5d62a0);
+  color: #ffff;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: 'Nunito';
+  font-size: clamp(1rem, 3vw, 3rem);
+  padding: 0 2rem;
+  justify-content: center;
+}
+.titleContainer {
+  margin-bottom: 2rem;
+  font-size: clamp(1rem, 5vw, 3rem);
+  color: #0f172a;
+  text-shadow:
+    0 0 0.5rem #fff,
+    0 0 1rem #fff,
+    0 0 1rem #0284c7;
+}
+
+.mascotContainer {
+  object-fit: contain;
+  width: clamp(120px, 40vw, 360px);
+}

@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Button from '../Button/Button';
+import styles from './Styles.module.css';
 
 const ChoiceStep = ({ step, next }) => {
   const [selected, setSelected] = useState(null);
   return (
     <div>
-      <div>{step.question}</div>
+      <div className={styles.infoContainer}>{step.question}</div>
       {step.options.map((option, index) => (
         <div key={index}>
           <label>
