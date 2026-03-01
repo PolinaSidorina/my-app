@@ -66,7 +66,7 @@ const Target = function () {
 
   return (
     <>
-      <div className={styles.targetContainer}>
+      <div className={styles.targetContainer} data-tutorial="target">
         {/* <img src={visual.gift} alt="goal" className={styles.gift} /> */}
         {state === TARGET_STATES.NO_TARGET && (
           <Button text="Создать цель" onClick={() => setIsModalOpen(true)} />

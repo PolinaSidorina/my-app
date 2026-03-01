@@ -28,6 +28,8 @@ const QuestPlayPage = function () {
     setActionState,
     saveQuestProgress,
     currentQuestId,
+    startHighlight,
+    stopHighlight,
   } = useContext(QuestContext);
 
   const navigate = useNavigate();
@@ -49,6 +51,26 @@ const QuestPlayPage = function () {
     }
   }, [currentQuest, navigate]);
 
+  // Эффект для обработки highlight
+  useEffect(() => {
+    if (!step) return;
+
+    if (step.type === 'highlight') {
+      startHighlight(step.target, step.text);
+
+      // Перенаправляем на нужную страницу
+      if (step.target === 'balance') {
+        navigate('/home');
+      } else if (step.target === 'covers') {
+        navigate('/budget');
+      } else if (step.target === 'target') {
+        navigate('/home');
+      }
+    } else {
+      stopHighlight();
+    }
+  }, [step, startHighlight, stopHighlight, navigate]);
+
   /**
    * Устанавливает бюджет для действия distributeMoney
    * Срабатывает, когда:
@@ -56,6 +78,7 @@ const QuestPlayPage = function () {
    * 2. Действие еще не выполнено
    * 3. Бюджет меньше требуемого
    */
+  // Эффект для установки бюджета (только для action)
   useEffect(() => {
     if (!step) return;
     if (step.type !== 'action') return;
@@ -65,7 +88,7 @@ const QuestPlayPage = function () {
     if (budget < step.requiredTotal) {
       setBudget(step.requiredTotal);
     }
-  }, [step, actionState.distributeMoney, actionState.monthlyPlanning, budget, setBudget]);
+  }, [step, actionState, budget, setBudget]);
 
   /**
    * Обрабатывает завершение действия

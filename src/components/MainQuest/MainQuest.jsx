@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QuestContext } from '../../context/QuestContext';
+import { quests } from '../../data/quests';
 import AddCrystal from '../AddCrystal/AddCrystal';
 import Button from '../Button/Button';
 import styles from '../MainQuest/MainQuest.module.css';
@@ -48,6 +49,11 @@ const MainQuest = function ({ mode = 'page', onClose }) {
   // Определяем, какой квест показывать
   // В модалке - текущий, на странице - следующий доступный
   const quest = mode === 'modal' ? currentQuest : nextQuest;
+
+  // ЕСЛИ НЕТ КВЕСТА И ЭТО НЕ МОДАЛКА - ПОКАЗЫВАЕМ ПЕРВЫЙ КВЕСТ
+  if (!quest && mode !== 'modal') {
+    quest = quests.find(q => q.id === 1);
+  }
 
   // Защита от отсутствия квеста
   if (!quest) return null;

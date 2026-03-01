@@ -136,18 +136,20 @@ const BudgetPage = function () {
       </div>
 
       {/* Конверты (4 категории) */}
-      <div className={styles.coversContainer}>
+      <div className={styles.coversContainer} data-tutorial="covers">
         {/* Необходимости */}
-        <Cover
-          image={CoverG}
-          text="Необходимости"
-          value={covers.needs + allocation.needs}
-          onAdd={() => changeCover('needs', STEP)}
-          onRemove={() => changeCover('needs', -STEP)}
-          alt="cover"
-          canAdd={canAdd}
-          canRemove={allocation.needs > 0}
-        />
+        <div>
+          <Cover
+            image={CoverG}
+            text="Необходимости"
+            value={covers.needs + allocation.needs}
+            onAdd={() => changeCover('needs', STEP)}
+            onRemove={() => changeCover('needs', -STEP)}
+            alt="cover"
+            canAdd={canAdd}
+            canRemove={allocation.needs > 0}
+          />
+        </div>
 
         {/* Хотелки */}
         <Cover

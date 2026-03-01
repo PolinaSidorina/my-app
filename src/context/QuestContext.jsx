@@ -56,6 +56,8 @@ export const QuestProvider = ({ children }) => {
   // --- Цель пользователя ---
   const [goal, setGoal] = useState(saved.goal ?? null);
 
+  // --- Состояние подсветки ---
+  const [activeHighlight, setActiveHighlight] = useState(saved.activeHighlight ?? null);
   // ============================================
   // 3. СОХРАНЕНИЕ В LOCALSTORAGE
   // ============================================
@@ -69,6 +71,7 @@ export const QuestProvider = ({ children }) => {
       currentQuestId,
       questProgressMap,
       actionState,
+      activeHighlight,
     };
     localStorage.setItem('questProgress', JSON.stringify(progress));
   }, [
@@ -80,6 +83,7 @@ export const QuestProvider = ({ children }) => {
     currentQuestId,
     questProgressMap,
     actionState,
+    activeHighlight,
   ]);
 
   // ============================================
@@ -179,6 +183,10 @@ export const QuestProvider = ({ children }) => {
     setActionState({});
   };
 
+  //Функции ихменения подсветки
+  const startHighlight = (target, text) => setActiveHighlight({ target, text });
+  const stopHighlight = () => setActiveHighlight(null);
+
   // ============================================
   // 6. ФУНКЦИИ ДЛЯ РАБОТЫ С ФИНАНСАМИ
   // ============================================
@@ -275,6 +283,7 @@ export const QuestProvider = ({ children }) => {
         nextQuest,
         questProgressMap,
         currentQuestId,
+        activeHighlight,
 
         // --- Функции для квестов ---
         completeQuest,
@@ -282,6 +291,8 @@ export const QuestProvider = ({ children }) => {
         setQuestStep: handleSetQuestStep,
         setActionState,
         saveQuestProgress,
+        startHighlight,
+        stopHighlight,
 
         // --- Функции для финансов ---
         distributeBudget,
