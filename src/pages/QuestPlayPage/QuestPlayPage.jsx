@@ -52,6 +52,7 @@ const QuestPlayPage = function () {
   }, [currentQuest, navigate]);
 
   // Эффект для обработки highlight
+  // Эффект для обработки highlight
   useEffect(() => {
     if (!step) return;
 
@@ -61,7 +62,14 @@ const QuestPlayPage = function () {
       // Перенаправляем на нужную страницу
       if (step.target === 'balance') {
         navigate('/home');
-      } else if (step.target === 'covers') {
+      } else if (step.target === 'menu_quests' || step.target === 'menu_budget') {
+        navigate('/home');
+      } else if (
+        step.target === 'cover_needs' ||
+        step.target === 'cover_wants' ||
+        step.target === 'cover_savings' ||
+        step.target === 'cover_good'
+      ) {
         navigate('/budget');
       } else if (step.target === 'target') {
         navigate('/home');
@@ -156,7 +164,7 @@ const QuestPlayPage = function () {
       <img src={Mascot} className={styles.mascotContainer} />
       <div>
         <div className={styles.titleContainer}>{currentQuest.title}</div>
-        <StepRenderer step={step} next={next} />
+        <StepRenderer step={step} next={next} stepIndex={questStep} />
       </div>
     </div>
   );

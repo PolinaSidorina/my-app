@@ -8,18 +8,18 @@
   flex-direction: row;
   align-items: center;
   font-family: 'Nunito';
-  font-size: clamp(1rem, 3vw, 3rem);
+  font-size: clamp(1rem, 2.5vw, 3rem);
   padding: 0 2rem;
   justify-content: center;
 }
 .titleContainer {
   margin-bottom: 2rem;
   font-size: clamp(1rem, 5vw, 3rem);
-  color: #0f172a;
+  color: #00042d;
   text-shadow:
     0 0 0.5rem #fff,
-    0 0 1rem #fff,
-    0 0 1rem #0284c7;
+    0 0 0.5rem #9841e2,
+    0 0 1rem #00ebff;
 }
 
 .mascotContainer {

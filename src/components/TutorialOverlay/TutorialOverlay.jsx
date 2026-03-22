@@ -61,7 +61,7 @@ const TutorialOverlay = () => {
   const spaceBelow = window.innerHeight - targetRect.bottom;
   const showBelow = spaceBelow > tooltipHeight + 20;
 
-  let offset = 10;
+  let offset = 50;
   if (activeHighlight.target === 'balance') {
     offset = -155;
   }
@@ -100,7 +100,9 @@ const TutorialOverlay = () => {
         }}
       >
         <div>{activeHighlight.text}</div>
-        <Button text="Далее" onClick={handleNext} />
+        <div className={styles.button}>
+          <Button text="Далее" onClick={handleNext} />
+        </div>
       </div>
     </div>
   );

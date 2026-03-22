@@ -46,13 +46,34 @@ const MainQuest = function ({ mode = 'page', onClose }) {
 
   const navigate = useNavigate();
 
+  // Проверяем, все ли квесты пройдены
+  const allQuestsCompleted = completedQuests.length === quests.length;
+
+  // Если все квесты пройдены и это не модалка, показываем поздравление
+  if (allQuestsCompleted && mode !== 'modal') {
+    return (
+      <div className={styles.mainQuestContainer}>
+        <div className={styles.hContainer}>
+          <div className={styles.textContainer}>
+            <div className={styles.h1Container}>🎉 Поздравляем! 🎉</div>
+            <div>Ты прошел все квесты и стал настоящим финансовым мастером!</div>
+            <div style={{ marginTop: '1rem' }}>
+              🌟 Продолжай копить и умно тратить свои Фини! 🌟
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Определяем, какой квест показывать
   // В модалке - текущий, на странице - следующий доступный
-  const quest = mode === 'modal' ? currentQuest : nextQuest;
+  let quest = null; // ✅ используем let
 
-  // ЕСЛИ НЕТ КВЕСТА И ЭТО НЕ МОДАЛКА - ПОКАЗЫВАЕМ ПЕРВЫЙ КВЕСТ
-  if (!quest && mode !== 'modal') {
-    quest = quests.find(q => q.id === 1);
+  if (mode === 'modal') {
+    quest = currentQuest;
+  } else {
+    quest = currentQuest || quests.find(q => q.id === 1);
   }
 
   // Защита от отсутствия квеста

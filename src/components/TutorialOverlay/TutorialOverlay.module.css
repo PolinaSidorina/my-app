@@ -20,7 +20,7 @@
   background: transparent;
   border-radius: 8px;
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
-  outline: 3px solid #ffd700;
+  outline: 3px solid #fff;
   outline-offset: 2px;
   pointer-events: none;
 }
@@ -28,7 +28,7 @@
 .tooltip {
   position: absolute;
   background: white;
-  color: #0f172a;
+  color: #00042d;
   font-family: 'Nunito', sans-serif;
   font-size: 1.2rem;
   padding: 1rem 1.5rem;
@@ -37,10 +37,13 @@
   max-width: 280px;
   pointer-events: auto;
   z-index: 1001;
-  border: 2px solid #9841e2;
-  margin-top: 1.2rem;
+  border: 2px solid #00ebff;
+  margin-top: 1.5rem;
+  margin-left: 0.5rem;
+  box-shadow: 0 0 0.5rem 0.1rem #00ebff;
 }
 
-.tooltip div {
-  margin-bottom: 1rem;
+.button {
+  margin-top: 0.3rem;
+  margin-left: 9rem;
 }

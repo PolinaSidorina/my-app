@@ -4,14 +4,14 @@ import ChoiceStep from './ChoiceStep';
 import CompleteStep from './CompleteStep';
 import InfoStep from './InfoStep';
 
-const StepRenderer = ({ step, next }) => {
+const StepRenderer = ({ step, next, stepIndex }) => {
   switch (step.type) {
     case 'info':
     case 'highlight':
     case 'timer':
       return <InfoStep step={step} next={next} />;
     case 'choice':
-      return <ChoiceStep step={step} next={next} />;
+      return <ChoiceStep step={step} next={next} stepIndex={stepIndex} />;
     case 'calculation':
       return <CalculationStep step={step} next={next} />;
     case 'action':

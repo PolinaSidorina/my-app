@@ -7,8 +7,11 @@ import styles from '../Header/Header.module.css';
 const Header = function () {
   const { level, progress, balance } = useContext(QuestContext);
   return (
-    <NavLink exact to={'/home'} className={styles.headerContainer}>
-      <Avatar avatar={AvatarImage} />
+    <div className={styles.headerContainer}>
+      <NavLink exact to={'/home'}>
+        <Avatar avatar={AvatarImage} />
+      </NavLink>
+
       <div className={styles.infoContainer}>
         <div className={styles.nameContainer}>Полина</div>
         <div className={styles.levelLineContainer} data-tutorial="balance">
@@ -17,7 +20,7 @@ const Header = function () {
         <div className={styles.levelText}>Еще немного до {level + 1} уровня!</div>
         <div className={styles.lvlContainer}>LVL{level}</div>
       </div>
-    </NavLink>
+    </div>
   );
 };
 export default Header;

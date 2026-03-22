@@ -136,9 +136,9 @@ const BudgetPage = function () {
       </div>
 
       {/* Конверты (4 категории) */}
-      <div className={styles.coversContainer} data-tutorial="covers">
+      <div className={styles.coversContainer}>
         {/* Необходимости */}
-        <div>
+        <div data-tutorial="cover_needs">
           <Cover
             image={CoverG}
             text="Необходимости"
@@ -152,40 +152,46 @@ const BudgetPage = function () {
         </div>
 
         {/* Хотелки */}
-        <Cover
-          image={CoverPu}
-          text="Хотелки"
-          value={covers.wants + allocation.wants}
-          onAdd={() => changeCover('wants', STEP)}
-          onRemove={() => changeCover('wants', -STEP)}
-          alt="cover"
-          canAdd={canAdd}
-          canRemove={allocation.wants > 0}
-        />
+        <div data-tutorial="cover_wants">
+          <Cover
+            image={CoverPu}
+            text="Хотелки"
+            value={covers.wants + allocation.wants}
+            onAdd={() => changeCover('wants', STEP)}
+            onRemove={() => changeCover('wants', -STEP)}
+            alt="cover"
+            canAdd={canAdd}
+            canRemove={allocation.wants > 0}
+          />
+        </div>
 
         {/* Накопления */}
-        <Cover
-          image={CoverB}
-          text="Накопления"
-          value={covers.savings + allocation.savings}
-          onAdd={() => changeCover('savings', STEP)}
-          onRemove={() => changeCover('savings', -STEP)}
-          alt="cover"
-          canAdd={canAdd}
-          canRemove={allocation.savings > 0}
-        />
+        <div data-tutorial="cover_savings">
+          <Cover
+            image={CoverB}
+            text="Накопления"
+            value={covers.savings + allocation.savings}
+            onAdd={() => changeCover('savings', STEP)}
+            onRemove={() => changeCover('savings', -STEP)}
+            alt="cover"
+            canAdd={canAdd}
+            canRemove={allocation.savings > 0}
+          />
+        </div>
 
         {/* Добрые дела */}
-        <Cover
-          image={CoverPi}
-          text="Добрые дела"
-          value={covers.good + allocation.good}
-          onAdd={() => changeCover('good', STEP)}
-          onRemove={() => changeCover('good', -STEP)}
-          alt="cover"
-          canAdd={canAdd}
-          canRemove={allocation.good > 0}
-        />
+        <div data-tutorial="cover_good">
+          <Cover
+            image={CoverPi}
+            text="Добрые дела"
+            value={covers.good + allocation.good}
+            onAdd={() => changeCover('good', STEP)}
+            onRemove={() => changeCover('good', -STEP)}
+            alt="cover"
+            canAdd={canAdd}
+            canRemove={allocation.good > 0}
+          />
+        </div>
       </div>
     </div>
   );

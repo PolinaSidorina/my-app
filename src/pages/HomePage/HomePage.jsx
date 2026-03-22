@@ -22,10 +22,18 @@ const HomePage = function () {
       <div className={styles.menuContainer}>
         <img src={Mascot} alt="mascot" className={styles.mascotContainer} />
         <div className={styles.buttonsContainer}>
-          <MenuButton text="Квесты" icon={QuestsIcon} link="/quests" />
-          <MenuButton text="Бюджет" icon={BudgetIcon} link="/budget" />
-          <MenuButton text="Достижения" icon={AchievementIcon} />
-          <MenuButton text="Магазин" icon={ShopIcon} />
+          <div data-tutorial="menu_quests">
+            <MenuButton text="Квесты" icon={QuestsIcon} link="/quests" />
+          </div>
+          <div data-tutorial="menu_budget">
+            <MenuButton text="Бюджет" icon={BudgetIcon} link="/budget" />
+          </div>
+          <div>
+            <MenuButton text="Достижения" icon={AchievementIcon} />
+          </div>
+          <div>
+            <MenuButton text="Магазин" icon={ShopIcon} />
+          </div>
         </div>
       </div>
     </div>
