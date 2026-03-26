@@ -3,6 +3,7 @@ import CalculationStep from './CalculationStep';
 import ChoiceStep from './ChoiceStep';
 import CompleteStep from './CompleteStep';
 import InfoStep from './InfoStep';
+import StatsStep from './StatsStep';
 
 const StepRenderer = ({ step, next, stepIndex }) => {
   switch (step.type) {
@@ -16,6 +17,8 @@ const StepRenderer = ({ step, next, stepIndex }) => {
       return <CalculationStep step={step} next={next} />;
     case 'action':
       return <ActionStep step={step} next={next} />;
+    case 'stats':
+      return <StatsStep step={step} next={next} />;
     case 'complete':
       return <CompleteStep step={step} next={next} />;
     default:
