@@ -5,6 +5,23 @@
   text-decoration: none;
   /* outline: 1px solid red; */
 }
+/* Глобальные стили */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Разрешаем выделение в полях ввода и кнопках */
+input,
+textarea,
+button {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+}
 
 @font-face {
   src: url(../../fonts/Nunito-Bold.ttf);

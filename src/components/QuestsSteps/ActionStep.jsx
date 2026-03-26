@@ -53,27 +53,8 @@ const ActionStep = ({ step }) => {
           const goodDiff = Math.abs(good - 20);
 
           if (needsDiff <= 10 && wantsDiff <= 10 && savingsDiff <= 10 && goodDiff <= 10) {
-            alert('✅ Отлично! Ты очень близко к идеальному распределению!');
             setActionState(prev => ({ ...prev, [step.action]: true }));
-          } else {
-            alert(
-              `❌ Давай попробуем еще раз!\n\nИдеальное распределение для 200 Фини:\n` +
-                `Необходимости: 100 🟢\n` +
-                `Накопления: 40 🔵\n` +
-                `Хотелки: 40 🟣\n` +
-                `Добрые дела: 20 💝\n\n` +
-                `У тебя получилось:\n` +
-                `Необходимости: ${needs}\n` +
-                `Накопления: ${savings}\n` +
-                `Хотелки: ${wants}\n` +
-                `Добрые дела: ${good}`
-            );
           }
-        } else {
-          alert(
-            `❌ Нужно распределить ровно 200 Фини.\n` +
-              `У тебя получилось ${total}. Попробуй еще раз!`
-          );
         }
         sessionStorage.removeItem('checkingDistribution');
       }, 500);
@@ -91,29 +72,11 @@ const ActionStep = ({ step }) => {
         const total = needs + wants + savings + good;
 
         // Проверяем, что деньги распределены и есть накопления
-        if (total > 0) {
-          if (savings > 0) {
-            alert(
-              `✅ Отлично! Ты правильно распределил свои ${total} Фини и не забыл про накопления!`
-            );
-            setActionState(prev => ({ ...prev, [step.action]: true }));
-          } else {
-            alert(
-              `❌ Важно откладывать деньги в накопления!\n\n` +
-                `У тебя получилось:\n` +
-                `Необходимости: ${needs}\n` +
-                `Накопления: ${savings} 🔵\n` +
-                `Хотелки: ${wants}\n` +
-                `Добрые дела: ${good}\n\n` +
-                `Попробуй оставить часть денег в Накоплениях!`
-            );
-          }
-        } else {
-          alert(
-            `❌ Нужно распределить деньги по конвертам!\n` +
-              `Сейчас все конверты пустые. Попробуй еще раз!`
-          );
+
+        if (savings > 0 && total > 0) {
+          setActionState(prev => ({ ...prev, [step.action]: true }));
         }
+
         sessionStorage.removeItem('checkingMonthlyPlanning');
       }, 500);
     }
