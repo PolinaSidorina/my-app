@@ -6,25 +6,13 @@ import AddCrystal from '../AddCrystal/AddCrystal';
 import Button from '../Button/Button';
 import styles from '../MainQuest/MainQuest.module.css';
 
-// Импорт иконок
 import learn from '../../img/learn.svg';
 import plan from '../../img/plan.svg';
 import play from '../../img/play.svg';
 import StartIcon from '../../img/start.svg';
 import think from '../../img/think.svg';
 
-/**
- * Компонент отображения информации о квесте
- * Используется в двух режимах:
- * - modal: для текущего квеста (с кнопками управления)
- * - page: для следующего доступного квеста (только информация)
- */
 const MainQuest = function ({ mode = 'page', onClose }) {
-  // ============================================
-  // 1. КОНФИГУРАЦИЯ
-  // ============================================
-
-  // Маппинг типов квестов на иконки
   const iconMap = {
     play,
     learn,
@@ -32,17 +20,8 @@ const MainQuest = function ({ mode = 'page', onClose }) {
     plan,
   };
 
-  // ============================================
-  // 2. ХУКИ И КОНТЕКСТ
-  // ============================================
-  const {
-    currentQuest,
-    nextQuest,
-    setCurrentQuestId,
-    completeQuest,
-    questProgressMap,
-    completedQuests,
-  } = useContext(QuestContext);
+  const { currentQuest, setCurrentQuestId, completeQuest, questProgressMap, completedQuests } =
+    useContext(QuestContext);
 
   const navigate = useNavigate();
 
@@ -57,9 +36,6 @@ const MainQuest = function ({ mode = 'page', onClose }) {
           <div className={styles.textContainer}>
             <div className={styles.h1Container}>🎉 Поздравляем! 🎉</div>
             <div>Ты прошел все квесты и стал настоящим финансовым мастером!</div>
-            <div style={{ marginTop: '1rem' }}>
-              🌟 Продолжай копить и умно тратить свои Фини! 🌟
-            </div>
           </div>
         </div>
       </div>
@@ -68,20 +44,15 @@ const MainQuest = function ({ mode = 'page', onClose }) {
 
   // Определяем, какой квест показывать
   // В модалке - текущий, на странице - следующий доступный
-  let quest = null; // ✅ используем let
+  let quest = null;
 
   if (mode === 'modal') {
     quest = currentQuest;
   } else {
-    quest = currentQuest || quests.find(q => q.id === 1);
+    quest = quests.find(q => !completedQuests.includes(q.id)) || quests.find(q => q.id === 1);
   }
 
-  // Защита от отсутствия квеста
   if (!quest) return null;
-
-  // ============================================
-  // 3. ВЫЧИСЛЯЕМЫЕ ЗНАЧЕНИЯ
-  // ============================================
 
   // Режим модалки = квест в процессе
   const isInProgress = mode === 'modal';

@@ -81,7 +81,7 @@ const ActionStep = ({ step }) => {
 
     // Проверка для monthlyPlanning
     const checkMonthly = sessionStorage.getItem('checkingMonthlyPlanning');
-    if (checkMonthly === 'true' && !hasChecked.current && step.requiredTotal === 500) {
+    if (checkMonthly === 'true' && !hasChecked.current) {
       hasChecked.current = true;
       setTimeout(() => {
         const needs = covers.needs;
@@ -90,10 +90,12 @@ const ActionStep = ({ step }) => {
         const good = covers.good;
         const total = needs + wants + savings + good;
 
-        if (total === 500) {
-          // Проверяем, что есть деньги в накоплениях
+        // Проверяем, что деньги распределены и есть накопления
+        if (total > 0) {
           if (savings > 0) {
-            alert('✅ Отлично! Ты правильно распределил доход и не забыл про накопления!');
+            alert(
+              `✅ Отлично! Ты правильно распределил свои ${total} Фини и не забыл про накопления!`
+            );
             setActionState(prev => ({ ...prev, [step.action]: true }));
           } else {
             alert(
@@ -108,8 +110,8 @@ const ActionStep = ({ step }) => {
           }
         } else {
           alert(
-            `❌ Нужно распределить ровно 500 Фини.\n` +
-              `У тебя получилось ${total}. Попробуй еще раз!`
+            `❌ Нужно распределить деньги по конвертам!\n` +
+              `Сейчас все конверты пустые. Попробуй еще раз!`
           );
         }
         sessionStorage.removeItem('checkingMonthlyPlanning');

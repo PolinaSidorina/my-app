@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QuestContext } from '../../context/QuestContext';
 import Button from '../Button/Button';
@@ -8,39 +8,49 @@ const TutorialOverlay = () => {
   const { activeHighlight, stopHighlight, questStep, setQuestStep } = useContext(QuestContext);
   const [targetRect, setTargetRect] = useState(null);
   const navigate = useNavigate();
+  const animationFrameRef = useRef(null);
+
+  const updatePosition = () => {
+    if (!activeHighlight) return;
+
+    const elements = document.querySelectorAll(`[data-tutorial="${activeHighlight.target}"]`);
+    if (elements.length > 0) {
+      let top = Infinity;
+      let left = Infinity;
+      let right = -Infinity;
+      let bottom = -Infinity;
+
+      elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        top = Math.min(top, rect.top);
+        left = Math.min(left, rect.left);
+        right = Math.max(right, rect.right);
+        bottom = Math.max(bottom, rect.bottom);
+      });
+
+      setTargetRect({
+        top,
+        left,
+        width: right - left,
+        height: bottom - top,
+      });
+    }
+  };
 
   useEffect(() => {
     if (!activeHighlight) return;
 
+    const findElements = () => {
+      const elements = document.querySelectorAll(`[data-tutorial="${activeHighlight.target}"]`);
+
+      if (elements.length > 0) {
+        updatePosition();
+        return true;
+      }
+      return false;
+    };
+
     const timeout = setTimeout(() => {
-      const findElements = () => {
-        const elements = document.querySelectorAll(`[data-tutorial="${activeHighlight.target}"]`);
-
-        if (elements.length > 0) {
-          let top = Infinity;
-          let left = Infinity;
-          let right = -Infinity;
-          let bottom = -Infinity;
-
-          elements.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            top = Math.min(top, rect.top);
-            left = Math.min(left, rect.left);
-            right = Math.max(right, rect.right);
-            bottom = Math.max(bottom, rect.bottom);
-          });
-
-          setTargetRect({
-            top,
-            left,
-            width: right - left,
-            height: bottom - top,
-          });
-          return true;
-        }
-        return false;
-      };
-
       if (findElements()) return;
 
       const interval = setInterval(() => {
@@ -55,30 +65,80 @@ const TutorialOverlay = () => {
     return () => clearTimeout(timeout);
   }, [activeHighlight]);
 
+  useEffect(() => {
+    if (!activeHighlight) return;
+
+    const handleScrollOrResize = () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      animationFrameRef.current = requestAnimationFrame(() => {
+        updatePosition();
+      });
+    };
+
+    window.addEventListener('scroll', handleScrollOrResize, true);
+    window.addEventListener('resize', handleScrollOrResize);
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollOrResize, true);
+      window.removeEventListener('resize', handleScrollOrResize);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [activeHighlight]);
+
   if (!activeHighlight || !targetRect) return null;
 
-  const tooltipHeight = 150;
+  const tooltipHeight = 100;
   const spaceBelow = window.innerHeight - targetRect.bottom;
-  const showBelow = spaceBelow > tooltipHeight + 20;
+  const showBelow = spaceBelow > tooltipHeight + 30;
 
-  let offset = 50;
+  // Увеличенные отступы
+  let offset = 25; // базовый отступ увеличил с 10 до 20
+
+  // Для баланса делаем отступ побольше
   if (activeHighlight.target === 'balance') {
-    offset = -155;
+    offset = 45;
+  }
+
+  // Для конвертов тоже увеличиваем
+  if (activeHighlight.target.includes('cover')) {
+    offset = 25;
   }
 
   let top;
   if (showBelow) {
-    top = targetRect.bottom + offset;
+    top = targetRect.bottom + offset; // показываем снизу
   } else {
-    top = targetRect.top - tooltipHeight - offset;
+    top = targetRect.top - tooltipHeight - offset; // показываем сверху
   }
 
-  const left = targetRect.left;
+  // Проверки на выход за границы
+  if (top < 10) {
+    top = 55;
+  }
+
+  if (top + tooltipHeight > window.innerHeight - 10) {
+    top = window.innerHeight - tooltipHeight - 10;
+  }
+
+  const tooltipWidth = 270;
+  let left = targetRect.left;
+
+  if (left + tooltipWidth > window.innerWidth - 10) {
+    left = window.innerWidth - tooltipWidth - 10;
+  }
+
+  if (left < 10) {
+    left = 10;
+  }
 
   const handleNext = () => {
     stopHighlight();
     setQuestStep(questStep + 1);
-    navigate('/play'); // Возвращаемся на страницу квеста
+    navigate('/play');
   };
 
   return (
@@ -100,9 +160,7 @@ const TutorialOverlay = () => {
         }}
       >
         <div>{activeHighlight.text}</div>
-        <div className={styles.button}>
-          <Button text="Далее" onClick={handleNext} />
-        </div>
+        <Button text="Далее" onClick={handleNext} />
       </div>
     </div>
   );

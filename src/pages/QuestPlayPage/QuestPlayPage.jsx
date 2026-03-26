@@ -5,18 +5,7 @@ import { QuestContext } from '../../context/QuestContext';
 import Mascot from '../../img/mascot.svg';
 import styles from './QuestPlayPage.module.css';
 
-/**
- * Страница прохождения квеста
- * Отвечает за:
- * - отображение текущего шага
- * - навигацию между шагами
- * - сохранение прогресса
- * - обработку действий
- */
 const QuestPlayPage = function () {
-  // ============================================
-  // 1. ХУКИ И КОНТЕКСТ
-  // ============================================
   const {
     currentQuest,
     questStep,
@@ -38,10 +27,6 @@ const QuestPlayPage = function () {
   const steps = currentQuest?.steps || [];
   const step = steps[questStep];
 
-  // ============================================
-  // 2. ЭФФЕКТЫ
-  // ============================================
-
   /**
    * Редирект на страницу квестов, если нет активного квеста
    */
@@ -52,27 +37,27 @@ const QuestPlayPage = function () {
   }, [currentQuest, navigate]);
 
   // Эффект для обработки highlight
-  // Эффект для обработки highlight
   useEffect(() => {
     if (!step) return;
 
     if (step.type === 'highlight') {
       startHighlight(step.target, step.text);
 
-      // Перенаправляем на нужную страницу
-      if (step.target === 'balance') {
-        navigate('/home');
-      } else if (step.target === 'menu_quests' || step.target === 'menu_budget') {
-        navigate('/home');
-      } else if (
-        step.target === 'cover_needs' ||
-        step.target === 'cover_wants' ||
-        step.target === 'cover_savings' ||
-        step.target === 'cover_good'
-      ) {
-        navigate('/budget');
-      } else if (step.target === 'target') {
-        navigate('/home');
+      switch (step.target) {
+        case 'balance':
+        case 'menu_quests':
+        case 'menu_budget':
+        case 'target':
+          navigate('/home');
+          break;
+        case 'cover_needs':
+        case 'cover_wants':
+        case 'cover_savings':
+        case 'cover_good':
+          navigate('/budget');
+          break;
+        default:
+          break;
       }
     } else {
       stopHighlight();
