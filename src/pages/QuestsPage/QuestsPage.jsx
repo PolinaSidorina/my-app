@@ -1,4 +1,6 @@
+// src/pages/QuestsPage/QuestsPage.jsx
 import { useContext, useState } from 'react';
+import { QUEST_STATUS } from '../../constants/gameConstants'; // ← добавляем импорт
 import { QuestContext } from '../../context/QuestContext.jsx';
 import { quests } from '../../data/quests';
 import styles from './QuestsPage.module.css';
@@ -35,23 +37,27 @@ const QuestsPage = function () {
         <Planet image={Planet3} className={styles.planet3} />
         <Planet image={Planet4} className={styles.planet4} />
 
-        {/* Рендерим все квесты из data/quests.js */}
         {quests.map(quest => {
           const isCompleted = completedQuests.includes(quest.id);
           const isUnlocked = quest.id === 1 || completedQuests.includes(quest.id - 1);
 
-          // Определяем статус для стилей и иконки
-          const status = isCompleted ? 'complited' : isUnlocked ? 'available' : 'locked';
+          // ИСПРАВЛЕНО: используем константы
+          let status;
+          if (isCompleted) {
+            status = QUEST_STATUS.COMPLETED; // 'completed'
+          } else if (isUnlocked) {
+            status = QUEST_STATUS.AVAILABLE; // 'available'
+          } else {
+            status = QUEST_STATUS.LOCKED; // 'locked'
+          }
 
           return (
             <QuestNode
               key={quest.id}
               status={status}
-              // Координаты из data/quests.js (в процентах)
               style={{ left: quest.x, top: quest.y }}
               type={quest.type}
               onClick={() => {
-                // Открываем модалку только для доступных квестов
                 if (isUnlocked) {
                   handleQuestClick(quest);
                 }

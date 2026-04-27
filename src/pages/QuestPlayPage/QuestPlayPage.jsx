@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StepRenderer from '../../components/QuestsSteps/StepRenderer';
+import { HIGHLIGHT_TARGETS } from '../../constants/gameConstants';
 import { QuestContext } from '../../context/QuestContext';
 import Mascot from '../../img/mascot.svg';
 import styles from './QuestPlayPage.module.css';
@@ -27,9 +28,6 @@ const QuestPlayPage = function () {
   const steps = currentQuest?.steps || [];
   const step = steps[questStep];
 
-  /**
-   * Редирект на страницу квестов, если нет активного квеста
-   */
   useEffect(() => {
     if (!currentQuest) {
       navigate('/quests');
@@ -44,16 +42,16 @@ const QuestPlayPage = function () {
       startHighlight(step.target, step.text);
 
       switch (step.target) {
-        case 'balance':
-        case 'menu_quests':
-        case 'menu_budget':
-        case 'target':
+        case HIGHLIGHT_TARGETS.BALANCE:
+        case HIGHLIGHT_TARGETS.MENU_QUESTS:
+        case HIGHLIGHT_TARGETS.MENU_BUDGET:
+        case HIGHLIGHT_TARGETS.TARGET:
           navigate('/home');
           break;
-        case 'cover_needs':
-        case 'cover_wants':
-        case 'cover_savings':
-        case 'cover_good':
+        case HIGHLIGHT_TARGETS.COVER_NEEDS:
+        case HIGHLIGHT_TARGETS.COVER_WANTS:
+        case HIGHLIGHT_TARGETS.COVER_SAVINGS:
+        case HIGHLIGHT_TARGETS.COVER_GOOD:
           navigate('/budget');
           break;
         default:
@@ -64,13 +62,6 @@ const QuestPlayPage = function () {
     }
   }, [step, startHighlight, stopHighlight, navigate]);
 
-  /**
-   * Устанавливает бюджет для действия distributeMoney
-   * Срабатывает, когда:
-   * 1. Текущий шаг - действие distributeMoney
-   * 2. Действие еще не выполнено
-   * 3. Бюджет меньше требуемого
-   */
   // Эффект для установки бюджета (только для action)
   useEffect(() => {
     if (!step) return;
@@ -83,10 +74,6 @@ const QuestPlayPage = function () {
     }
   }, [step, actionState, budget, setBudget]);
 
-  /**
-   * Обрабатывает завершение действия
-   * Срабатывает, когда actionState[step.action] становится true
-   */
   useEffect(() => {
     if (!step) return;
     if (step.type !== 'action') return;
@@ -109,10 +96,6 @@ const QuestPlayPage = function () {
     });
   }, [actionState, step, questStep, steps.length, currentQuestId, saveQuestProgress, setQuestStep]);
 
-  // ============================================
-  // 3. РАННИЙ ВОЗВРАТ (Guard Clauses)
-  // ============================================
-
   // Если нет квеста - ничего не рендерим (редирект сработает выше)
   if (!currentQuest) return null;
 
@@ -122,14 +105,6 @@ const QuestPlayPage = function () {
     return null;
   }
 
-  // ============================================
-  // 4. ФУНКЦИИ-ОБРАБОТЧИКИ
-  // ============================================
-
-  /**
-   * Переход к следующему шагу квеста
-   * Вызывается из StepRenderer при клике на "Далее"
-   */
   const next = () => {
     if (questStep < steps.length - 1) {
       // Сохраняем прогресс и переходим на следующий шаг

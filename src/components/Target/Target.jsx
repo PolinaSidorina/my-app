@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { QuestContext } from '../../context/QuestContext';
+import { TARGET_STATES, TARGET_THRESHOLDS, HIGHLIGHT_TARGETS } from '../../constants/gameConstants';
 import gift_0 from '../../img/gift_0.svg';
 import gift_1 from '../../img/gift_1.svg';
 import gift_2 from '../../img/gift_2.svg';
@@ -9,49 +10,39 @@ import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import styles from '../Target/Target.module.css';
 
-const TARGET_STATES = {
-  NO_TARGET: 'NO_TARGET',
-  EMPTY: 'EMPTY',
-  STARTED: 'STARTED',
-  PROGRESS: 'PROGRESS',
-  ALMOST: 'ALMOST',
-  DONE: 'DONE',
-};
-
+// Конфигурация иконок для каждого состояния
 const STATE_CONFIG = {
-  NO_TARGET: {
-    ringClass: styles.ringEmpty,
+  [TARGET_STATES.NO_TARGET]: {
     gift: gift_0,
   },
-  EMPTY: {
-    ringClass: styles.ringEmpty,
+  [TARGET_STATES.EMPTY]: {
     gift: gift_0,
   },
-  STARTED: {
-    ringClass: styles.ringStart,
+  [TARGET_STATES.STARTED]: {
     gift: gift_1,
   },
-  PROGRESS: {
-    ringClass: styles.ringProgress,
+  [TARGET_STATES.PROGRESS]: {
     gift: gift_2,
   },
-  ALMOST: {
-    ringClass: styles.ringAlmost,
+  [TARGET_STATES.ALMOST]: {
     gift: gift_3,
   },
-  DONE: {
-    ringClass: styles.ringDone,
+  [TARGET_STATES.DONE]: {
     gift: gift_4,
   },
 };
 
+// Функция определения состояния цели
 const getTargetState = ({ goal, current }) => {
   if (!goal) return TARGET_STATES.NO_TARGET;
-  const progress = current / goal.targetAmount;
   if (current === 0) return TARGET_STATES.EMPTY;
-  if (progress < 0.3) return TARGET_STATES.STARTED;
-  if (progress < 0.7) return TARGET_STATES.PROGRESS;
-  if (progress < 1) return TARGET_STATES.ALMOST;
+
+  const progress = current / goal.targetAmount;
+
+  if (progress < TARGET_THRESHOLDS.STARTED) return TARGET_STATES.STARTED;
+  if (progress < TARGET_THRESHOLDS.PROGRESS) return TARGET_STATES.PROGRESS;
+  if (progress < TARGET_THRESHOLDS.DONE) return TARGET_STATES.ALMOST;
+
   return TARGET_STATES.DONE;
 };
 
@@ -60,17 +51,18 @@ const Target = function () {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
+
   const currentAmount = covers.savings;
   const state = getTargetState({ goal, current: currentAmount });
   const visual = STATE_CONFIG[state];
 
   return (
     <>
-      <div className={styles.targetContainer} data-tutorial="target">
-        {/* <img src={visual.gift} alt="goal" className={styles.gift} /> */}
+      <div className={styles.targetContainer} data-tutorial={HIGHLIGHT_TARGETS.TARGET}>
         {state === TARGET_STATES.NO_TARGET && (
           <Button text="Создать цель" onClick={() => setIsModalOpen(true)} />
-        )}{' '}
+        )}
+
         {state !== TARGET_STATES.NO_TARGET && (
           <>
             <img src={visual.gift} alt="goal" className={styles.gift} />

@@ -1,5 +1,5 @@
-// components/QuestsSteps/StatsStep.jsx
 import { useContext } from 'react';
+import { validateDistribution } from '../../constants/gameConstants';
 import { QuestContext } from '../../context/QuestContext';
 import Button from '../Button/Button';
 import styles from './Styles.module.css';
@@ -7,34 +7,44 @@ import styles from './Styles.module.css';
 const StatsStep = ({ step, next }) => {
   const { covers } = useContext(QuestContext);
 
-  const needs = covers.needs;
-  const wants = covers.wants;
-  const savings = covers.savings;
-  const good = covers.good;
+  const { needs, wants, savings, good } = covers;
   const total = needs + wants + savings + good;
 
-  const isPerfect =
-    total === 200 &&
-    Math.abs(needs - 100) <= 10 &&
-    Math.abs(wants - 40) <= 10 &&
-    Math.abs(savings - 40) <= 10 &&
-    Math.abs(good - 20) <= 10;
+  // Вся логика проверки уже внутри validateDistribution
+  const result = validateDistribution(covers, total);
+
+  // Проценты только для наглядности (можно и убрать, если не нужно)
+  const needsPercent = total > 0 ? Math.round((needs / total) * 100) : 0;
+  const wantsPercent = total > 0 ? Math.round((wants / total) * 100) : 0;
+  const savingsPercent = total > 0 ? Math.round((savings / total) * 100) : 0;
+  const goodPercent = total > 0 ? Math.round((good / total) * 100) : 0;
 
   return (
     <div className={styles.statsContainer}>
-      <div className={styles.infoContainer}>{step.text}</div>
+      <div className={styles.infoContainer}>📊 {step.text}</div>
 
       <div className={styles.statsCard}>
-        <div className={styles.statsTitle}>📊 Твои деньги:</div>
-        <div>🥖 Необходимости: {needs}</div>
-        <div>🐷 Накопления: {savings}</div>
-        <div>🎮 Хотелки: {wants}</div>
-        <div>🎁 Добрые дела: {good}</div>
-        <div>💰 Всего: {total}</div>
+        <div className={styles.statsTitle}>📊 Твоё распределение (всего {total} Фини):</div>
 
-        {isPerfect && <div>✅ Отлично! Ты молодец!</div>}
+        <div>
+          🥖 Необходимости: {needs} ({needsPercent}%)
+        </div>
+        <div>
+          🐷 Накопления: {savings} ({savingsPercent}%)
+        </div>
+        <div>
+          🎮 Хотелки: {wants} ({wantsPercent}%)
+        </div>
+        <div>
+          🎁 Добрые дела: {good} ({goodPercent}%)
+        </div>
 
-        {!isPerfect && <div>📝 Попробуй еще раз! Нужно: 100, 40, 40, 20</div>}
+        <div className={styles.statsTotal}>💰 Всего: {total} Фини</div>
+
+        {/* Просто показываем результат из validateDistribution */}
+        {result.isValid && <div className={styles.successMessage}>{result.message}</div>}
+
+        {!result.isValid && <div className={styles.warningMessage}>{result.message}</div>}
       </div>
 
       <Button text="Далее" onClick={next} />

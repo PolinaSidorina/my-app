@@ -14,7 +14,6 @@ const CompleteStep = ({ step, next }) => {
       <Button
         text="Завершить"
         onClick={() => {
-          // completeQuest(currentQuest.id);
           next();
           navigate('/quests');
         }}

@@ -1,3 +1,5 @@
+// src/components/QuestNode/QuestNode.jsx
+import { QUEST_STATUS } from '../../constants/gameConstants';
 import learn from '../../img/learn.svg';
 import learn_c from '../../img/learn_c.svg';
 import learn_l from '../../img/learn_l.svg';
@@ -28,7 +30,19 @@ const iconMap = {
 };
 
 const QuestNode = function ({ status, style, type, onClick }) {
-  const iconKey = status === 'locked' ? `${type}_l` : status === 'complited' ? `${type}_c` : type;
+  // Используем константы для сравнения
+  const isLocked = status === QUEST_STATUS.LOCKED;
+  const isCompleted = status === QUEST_STATUS.COMPLETED;
+
+  let iconKey;
+  if (isLocked) {
+    iconKey = `${type}_l`;
+  } else if (isCompleted) {
+    iconKey = `${type}_c`;
+  } else {
+    iconKey = type;
+  }
+
   const icon = iconMap[iconKey];
 
   return (
@@ -37,4 +51,5 @@ const QuestNode = function ({ status, style, type, onClick }) {
     </div>
   );
 };
+
 export default QuestNode;

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { QuestContext } from '../../context/QuestContext';
 import styles from './BudgetPage.module.css';
+import { HIGHLIGHT_TARGETS } from '../../constants/gameConstants';
 
 import Button from '../../components/Button/Button';
 import Cover from '../../components/Cover/Cover';
@@ -16,7 +17,7 @@ import Crystals from '../../img/crystals.svg';
 import Mascot from '../../img/mascot_sad.svg';
 import SaveIcon from '../../img/save.svg';
 
-const STEP = 10;
+const STEP = 5;
 
 const BudgetPage = function () {
   const { budget, covers, distributeBudget } = useContext(QuestContext);
@@ -143,7 +144,7 @@ const BudgetPage = function () {
       </div>
 
       <div className={styles.coversContainer}>
-        <div data-tutorial="cover_needs">
+        <div data-tutorial={HIGHLIGHT_TARGETS.COVER_NEEDS}>
           <Cover
             image={CoverG}
             text="Необходимости"
@@ -156,7 +157,7 @@ const BudgetPage = function () {
           />
         </div>
 
-        <div data-tutorial="cover_wants">
+        <div data-tutorial={HIGHLIGHT_TARGETS.COVER_WANTS}>
           <Cover
             image={CoverPu}
             text="Хотелки"
@@ -169,7 +170,7 @@ const BudgetPage = function () {
           />
         </div>
 
-        <div data-tutorial="cover_savings">
+        <div data-tutorial={HIGHLIGHT_TARGETS.COVER_SAVINGS}>
           <Cover
             image={CoverB}
             text="Накопления"
@@ -182,7 +183,7 @@ const BudgetPage = function () {
           />
         </div>
 
-        <div data-tutorial="cover_good">
+        <div data-tutorial={HIGHLIGHT_TARGETS.COVER_GOOD}>
           <Cover
             image={CoverPi}
             text="Добрые дела"

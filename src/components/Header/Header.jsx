@@ -1,9 +1,11 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { HIGHLIGHT_TARGETS } from '../../constants/gameConstants';
 import { QuestContext } from '../../context/QuestContext';
 import AvatarImage from '../../img/avatar.png';
 import Avatar from '../Avatar/Avatar';
 import styles from '../Header/Header.module.css';
+
 const Header = function () {
   const { level, progress, balance } = useContext(QuestContext);
   return (
@@ -14,7 +16,7 @@ const Header = function () {
 
       <div className={styles.infoContainer}>
         <div className={styles.nameContainer}>Полина</div>
-        <div className={styles.levelLineContainer} data-tutorial="balance">
+        <div className={styles.levelLineContainer} data-tutorial={HIGHLIGHT_TARGETS.BALANCE}>
           <div className={styles.levelLineFill} style={{ width: `${progress * 100}%` }} />
         </div>
         <div className={styles.levelText}>Еще немного до {level + 1} уровня!</div>

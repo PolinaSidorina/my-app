@@ -26,20 +26,6 @@ const ChoiceStep = ({ step, next, stepIndex }) => {
     if (selectedOption.effect) {
       let message = '✅ Отличный выбор!';
 
-      // switch (selectedOption.effect) {
-      //   case 'safe':
-      //     message = '🔒 Копилка — безопасно! Твои 200 Фини сохранены, но доход небольшой.';
-      //     break;
-      //   case 'medium':
-      //     message = '🏦 Банк — хороший выбор! Твои деньги работают и приносят доход.';
-      //     break;
-      //   case 'high':
-      //     message =
-      //       '🚀 Смелое решение! Риск оправдался — ты заработал 80 Фини! Но помни: в следующий раз может не повезти.';
-      //     break;
-      //   default:
-      //     message = '✅ Отличный выбор!';
-      // }
       if (selectedOption.result) {
         message = selectedOption.result;
       }

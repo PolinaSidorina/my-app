@@ -2,6 +2,7 @@ import Header from '../../components/Header/Header';
 import MainQuest from '../../components/MainQuest/MainQuest';
 import MenuButton from '../../components/MenuButton/MenuButton';
 import Target from '../../components/Target/Target';
+import { HIGHLIGHT_TARGETS } from '../../constants/gameConstants';
 import AchievementIcon from '../../img/achievement.svg';
 import BudgetIcon from '../../img/budget.svg';
 import Mascot from '../../img/mascot.svg';
@@ -22,10 +23,10 @@ const HomePage = function () {
       <div className={styles.menuContainer}>
         <img src={Mascot} alt="mascot" className={styles.mascotContainer} />
         <div className={styles.buttonsContainer}>
-          <div data-tutorial="menu_quests">
+          <div data-tutorial={HIGHLIGHT_TARGETS.MENU_QUESTS}>
             <MenuButton text="Квесты" icon={QuestsIcon} link="/quests" />
           </div>
-          <div data-tutorial="menu_budget">
+          <div data-tutorial={HIGHLIGHT_TARGETS.MENU_BUDGET}>
             <MenuButton text="Бюджет" icon={BudgetIcon} link="/budget" />
           </div>
           <div>
