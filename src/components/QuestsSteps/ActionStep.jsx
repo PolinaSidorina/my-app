@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ACTION_TYPES, validateDistribution } from '../../constants/gameConstants';
 import { QuestContext } from '../../context/QuestContext';
-import { ACTION_TYPES } from '../../constants/gameConstants';
-import { validateDistribution } from '../../constants/gameConstants';
+import { clearCheckingDistribution, setCheckingDistribution } from '../../utils/storage';
 import Button from '../Button/Button';
 import Target from '../Target/Target';
 import styles from './Styles.module.css';
@@ -15,7 +15,7 @@ const ActionStep = ({ step }) => {
   const handleStartAction = () => {
     if (step.action === ACTION_TYPES.DISTRIBUTE_MONEY) {
       // Ставим флаг проверки
-      sessionStorage.setItem('checkingDistribution', 'true');
+      setCheckingDistribution();
       hasChecked.current = false;
 
       // Логика для 12 квеста (500 Фини)
@@ -41,8 +41,7 @@ const ActionStep = ({ step }) => {
   };
 
   useEffect(() => {
-    const checkDistribution = sessionStorage.getItem('checkingDistribution');
-    if (checkDistribution === 'true' && !hasChecked.current && step.requiredTotal) {
+    if (isCheckingDistribution() && !hasChecked.current && step.requiredTotal) {
       hasChecked.current = true;
       setTimeout(() => {
         // Получаем текущую сумму из конвертов
@@ -58,7 +57,7 @@ const ActionStep = ({ step }) => {
           setActionState(prev => ({ ...prev, [step.action]: true }));
         }
 
-        sessionStorage.removeItem('checkingDistribution');
+        clearCheckingDistribution();
       }, 500);
     }
   }, [covers, step, setActionState]);

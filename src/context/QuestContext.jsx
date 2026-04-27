@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { quests } from '../data/quests';
+import { loadProgress, saveProgress } from '../utils/storage';
 
 export const QuestContext = createContext();
 
@@ -17,7 +18,7 @@ export const QuestProvider = ({ children }) => {
   // ============================================
   // 1. ЗАГРУЗКА СОХРАНЕННОГО ПРОГРЕССА ИЗ LOCALSTORAGE
   // ============================================
-  const saved = JSON.parse(localStorage.getItem('questProgress') || '{}');
+  const saved = loadProgress();
 
   // ============================================
   // 2. СОСТОЯНИЯ ПРИЛОЖЕНИЯ
@@ -73,7 +74,7 @@ export const QuestProvider = ({ children }) => {
       actionState,
       activeHighlight,
     };
-    localStorage.setItem('questProgress', JSON.stringify(progress));
+    saveProgress(progress);
   }, [
     balance,
     budget,
