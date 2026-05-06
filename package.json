@@ -1,4 +1,5 @@
 {
+  "homepage": "https://polinasidorina.github.io/my-app",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -45,3 +46,4 @@
     "react-scripts": "^5.0.1"
   }
 }
+
