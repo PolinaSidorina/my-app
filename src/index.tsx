@@ -17,7 +17,7 @@ document.addEventListener('copy', (e: ClipboardEvent) => {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <HashRouter basename="/">
+    <HashRouter>
       <QuestProvider>
         <App />
       </QuestProvider>
