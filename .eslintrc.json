@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "react-app",
-    "react-app/jest",
-    "prettier"
-  ],
+  "extends": ["react-app", "react-app/jest", "prettier"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error",
@@ -13,6 +9,12 @@
   "overrides": [
     {
       "files": ["**/*.js", "**/*.jsx"],
+      "rules": {
+        "prettier/prettier": ["error", { "singleQuote": true }]
+      }
+    },
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
       "rules": {
         "prettier/prettier": ["error", { "singleQuote": true }]
       }
