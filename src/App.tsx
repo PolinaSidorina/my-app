@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import TutorialOverlay from './components/TutorialOverlay/TutorialOverlay';
+import AuthPage from './pages/AuthPage/AuthPage';
 import BudgetPage from './pages/BudgetPage/BudgetPage';
 import HomePage from './pages/HomePage/HomePage';
 import QuestPlayPage from './pages/QuestPlayPage/QuestPlayPage';
@@ -9,11 +11,41 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/budget" element={<BudgetPage />} />
-        <Route path="/quests" element={<QuestsPage />} />
-        <Route path="/play" element={<QuestPlayPage />} />
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/auth" element={<AuthPage />} />
+
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/budget"
+          element={
+            <ProtectedRoute>
+              <BudgetPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/quests"
+          element={
+            <ProtectedRoute>
+              <QuestsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/play"
+          element={
+            <ProtectedRoute>
+              <QuestPlayPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <TutorialOverlay />
     </>

@@ -34,7 +34,7 @@ const QuestsPage = () => {
   return (
     <div className={styles.questsPageContainer}>
       <div className={styles.headerContainer}>
-        <Header name="Полина" />
+        <Header />
       </div>
 
       <div className={styles.planetsContainer}>

@@ -126,7 +126,7 @@ const BudgetPage = function () {
   return (
     <div className={styles.budgetPageContainer}>
       <div className={styles.headerContainer}>
-        <Header name="Полина" />
+        <Header />
       </div>
 
       <div className={styles.mainContainer}>

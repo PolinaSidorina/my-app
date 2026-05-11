@@ -14,7 +14,7 @@ const HomePage = () => {
   return (
     <div className={styles.homePageContainer}>
       <div className={styles.headerContainer}>
-        <Header name="Полина" />
+        <Header />
       </div>
       <div className={styles.mainContainer}>
         <MainQuest />

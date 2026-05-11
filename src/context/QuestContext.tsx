@@ -1,10 +1,10 @@
-// src/context/QuestContext.tsx
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ACTION_TYPES, LEVEL_STEP, STEP_TYPE } from '../constants/gameConstants';
 import { quests } from '../data/quests';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useQuestFlags } from '../hooks/useQuestFlags';
 import { useQuestValidation } from '../hooks/useQuestValidation';
+import { loadProgress as loadProgressAPI, saveProgress as saveProgressAPI } from '../services/api';
 import {
   BudgetRules,
   Covers,
@@ -22,6 +22,7 @@ export type QuestContextValue = {
   level: number;
   progress: number;
   canDistribute: boolean;
+  isLoading: boolean;
   setBudget: (value: number) => void;
   distributeBudget: (allocation: Covers) => void;
   createGoal: (goal: Goal) => void;
@@ -72,6 +73,64 @@ export const QuestProvider = ({ children }: { children: React.ReactNode }) => {
   const [actionState, setActionState] = useLocalStorage('actionState', {});
   const [goal, setGoal] = useLocalStorage('goal', null);
   const [activeHighlight, setActiveHighlight] = useLocalStorage('activeHighlight', null);
+
+  // ========== ИДЕНТИФИКАТОР ПОЛЬЗОВАТЕЛЯ ==========
+  const [userId, setUserId] = useState<number | null>(() => {
+    const saved = localStorage.getItem('userId');
+    return saved ? parseInt(saved, 10) : null;
+  });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // ========== ЗАГРУЗКА ПРОГРЕССА С СЕРВЕРА ==========
+  useEffect(() => {
+    const loadUserProgress = async () => {
+      if (!userId) {
+        setIsLoading(false);
+        return;
+      }
+      try {
+        console.log('Загрузка прогресса для userId:', userId);
+        const progress = await loadProgressAPI(userId);
+        console.log('Получен прогресс:', progress);
+
+        setBalance(progress.balance);
+        setBudget(progress.budget);
+        setCovers(progress.covers);
+        setCompletedQuests(progress.completed_quests);
+        setCurrentQuestId(progress.current_quest_id);
+        setGoal(progress.goal);
+      } catch (err) {
+        console.error('Ошибка загрузки прогресса:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadUserProgress();
+  }, [userId]);
+
+  // ========== СОХРАНЕНИЕ ПРОГРЕССА НА СЕРВЕРЕ ==========
+  useEffect(() => {
+    const saveUserProgress = async () => {
+      if (!userId || isLoading) return;
+      try {
+        await saveProgressAPI(userId, {
+          balance,
+          budget,
+          covers,
+          completedQuests,
+          currentQuestId,
+          goal,
+        });
+        console.log('Прогресс сохранен на сервере');
+      } catch (err) {
+        console.error('Ошибка сохранения прогресса:', err);
+      }
+    };
+    const timer = setTimeout(() => {
+      saveUserProgress();
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [balance, budget, covers, completedQuests, currentQuestId, userId, isLoading]);
 
   // ========== ОСОБОЕ СОСТОЯНИЕ ==========
   const [questStep, setQuestStep] = useState<number>(
@@ -197,6 +256,7 @@ export const QuestProvider = ({ children }: { children: React.ReactNode }) => {
         level,
         progress,
         canDistribute,
+        isLoading,
         setBudget,
         distributeBudget,
         createGoal,
