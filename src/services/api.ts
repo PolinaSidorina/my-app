@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://finikvest-backend-production.up.railway.app/api';
 
 async function request<T>(endpoint: string, method: string = 'GET', body?: any): Promise<T> {
   const url = `${API_BASE_URL}${endpoint}`;
