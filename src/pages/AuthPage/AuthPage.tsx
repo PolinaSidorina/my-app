@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import EmailVerificationModal from '../../components/EmailVerificationModal/EmailVerificationModal';
 import { login, register } from '../../services/api';
 import styles from './AuthPage.module.css';
 
@@ -11,6 +12,9 @@ const AuthPage = () => {
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [username, setUsername] = useState<string>('');
+  const [showVerification, setShowVerification] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState('');
+  const [pendingResponse, setPendingResponse] = useState<any>(null);
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
@@ -29,17 +33,27 @@ const AuthPage = () => {
 
       if (isLogin) {
         response = await login(email, password);
+        localStorage.setItem('userId', response.userId.toString());
+        localStorage.setItem('username', response.username);
+        navigate('/home', { replace: true });
       } else {
         response = await register(username, email, password);
+        setRegisteredEmail(email);
+        setPendingResponse(response);
+        setShowVerification(true);
+        return;
       }
-
-      localStorage.setItem('userId', response.userId.toString());
-      localStorage.setItem('username', response.username);
-      navigate('/home', { replace: true });
     } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+  const handleVerificationSuccess = () => {
+    if (pendingResponse) {
+      localStorage.setItem('userId', pendingResponse.userId.toString());
+      localStorage.setItem('username', pendingResponse.username);
+      navigate('/home', { replace: true });
     }
   };
 
@@ -90,6 +104,16 @@ const AuthPage = () => {
           {isLogin ? 'Нет аккаунта? Зарегистрироваться' : 'Уже есть аккаунт? Войти'}
         </button>
       </div>
+      {showVerification && (
+        <EmailVerificationModal
+          email={registeredEmail}
+          onClose={() => {
+            setShowVerification(false);
+            setPendingResponse(null);
+          }}
+          onVerified={handleVerificationSuccess}
+        />
+      )}
     </div>
   );
 };

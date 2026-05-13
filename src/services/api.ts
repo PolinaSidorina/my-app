@@ -73,3 +73,9 @@ export const updateQuest = async (questId: number, questData: any) => {
 export const deleteQuest = async (questId: number) => {
   return request<any>(`/admin/quests/${questId}`, 'DELETE');
 };
+
+export const sendVerificationCode = (email: string) =>
+  request<{ success: boolean; message: string }>('/auth/send-verification', 'POST', { email });
+
+export const verifyEmail = (email: string, code: string) =>
+  request<{ success: boolean; message: string }>('/auth/verify-email', 'POST', { email, code });
