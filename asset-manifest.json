@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/my-app/static/css/main.6b891665.css",
-    "main.js": "/my-app/static/js/main.c7d5bbd1.js",
+    "main.css": "/my-app/static/css/main.d69efbda.css",
+    "main.js": "/my-app/static/js/main.439fb1f8.js",
     "static/media/mascot.svg": "/my-app/static/media/mascot.b21230a496e50847fe4ec946eb5c909a.svg",
     "static/media/mascot_sad.svg": "/my-app/static/media/mascot_sad.8b32b2b94de0cd80c8268b4cf13073c0.svg",
     "static/media/gift_3.svg": "/my-app/static/media/gift_3.7907c4322954378c93c52b38e65b4e11.svg",
@@ -40,11 +40,11 @@
     "static/media/start.svg": "/my-app/static/media/start.52235bfc21902840594b2f72a79f314a.svg",
     "static/media/save.svg": "/my-app/static/media/save.c47cb16619b48fe92054df4188a41a07.svg",
     "index.html": "/my-app/index.html",
-    "main.6b891665.css.map": "/my-app/static/css/main.6b891665.css.map",
-    "main.c7d5bbd1.js.map": "/my-app/static/js/main.c7d5bbd1.js.map"
+    "main.d69efbda.css.map": "/my-app/static/css/main.d69efbda.css.map",
+    "main.439fb1f8.js.map": "/my-app/static/js/main.439fb1f8.js.map"
   },
   "entrypoints": [
-    "static/css/main.6b891665.css",
-    "static/js/main.c7d5bbd1.js"
+    "static/css/main.d69efbda.css",
+    "static/js/main.439fb1f8.js"
   ]
 }
