@@ -30,10 +30,10 @@ const HomePage = () => {
             <MenuButton text="Бюджет" icon={BudgetIcon} link="/budget" />
           </div>
           <div>
-            <MenuButton text="Достижения" icon={AchievementIcon} link="/budget" />
+            <MenuButton text="Достижения" icon={AchievementIcon} link="/shop" />
           </div>
           <div>
-            <MenuButton text="Магазин" icon={ShopIcon} link="/budget" />
+            <MenuButton text="Магазин" icon={ShopIcon} link="/shop" />
           </div>
         </div>
       </div>

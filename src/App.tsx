@@ -6,6 +6,7 @@ import BudgetPage from './pages/BudgetPage/BudgetPage';
 import HomePage from './pages/HomePage/HomePage';
 import QuestPlayPage from './pages/QuestPlayPage/QuestPlayPage';
 import QuestsPage from './pages/QuestsPage/QuestsPage';
+import ShopPage from './pages/ShopPage/ShopPage';
 
 const App = () => {
   return (
@@ -43,6 +44,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <QuestPlayPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/shop"
+          element={
+            <ProtectedRoute>
+              <ShopPage />
             </ProtectedRoute>
           }
         />
