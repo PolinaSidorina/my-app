@@ -57,3 +57,19 @@ export const saveProgress = (
     goal: { title: string; targetAmount: number } | null;
   }
 ) => request<{ success: boolean; message: string }>('/progress', 'POST', { userId, ...data });
+
+export const fetchQuests = async () => {
+  return request<any[]>('/quests', 'GET');
+};
+
+export const addQuest = async (questData: any) => {
+  return request<any>('/admin/quests', 'POST', questData);
+};
+
+export const updateQuest = async (questId: number, questData: any) => {
+  return request<any>(`/admin/quests/${questId}`, 'PUT', questData);
+};
+
+export const deleteQuest = async (questId: number) => {
+  return request<any>(`/admin/quests/${questId}`, 'DELETE');
+};

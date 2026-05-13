@@ -1,10 +1,13 @@
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ACTION_TYPES, LEVEL_STEP, STEP_TYPE } from '../constants/gameConstants';
-import { quests } from '../data/quests';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useQuestFlags } from '../hooks/useQuestFlags';
 import { useQuestValidation } from '../hooks/useQuestValidation';
-import { loadProgress as loadProgressAPI, saveProgress as saveProgressAPI } from '../services/api';
+import {
+  fetchQuests,
+  loadProgress as loadProgressAPI,
+  saveProgress as saveProgressAPI,
+} from '../services/api';
 import {
   BudgetRules,
   Covers,
@@ -27,6 +30,8 @@ export type QuestContextValue = {
   distributeBudget: (allocation: Covers) => void;
   createGoal: (goal: Goal) => void;
   clearGoal: () => void;
+  serverQuests: Quest[];
+  questsLoading: boolean;
   goal: Goal | null;
   questStep: number;
   actionState: Record<string, boolean>;
@@ -41,6 +46,7 @@ export type QuestContextValue = {
   setQuestStep: (step: number) => void;
   setActionState: Dispatch<SetStateAction<Record<string, boolean>>>;
   saveQuestProgress: (questId: number, step: number) => void;
+  refreshQuests: () => Promise<void>;
   startHighlight: (target: string, text: string) => void;
   stopHighlight: () => void;
   validateBudget: (covers: Covers, totalAmount: number) => ValidationResult;
@@ -73,6 +79,8 @@ export const QuestProvider = ({ children }: { children: React.ReactNode }) => {
   const [actionState, setActionState] = useLocalStorage('actionState', {});
   const [goal, setGoal] = useLocalStorage('goal', null);
   const [activeHighlight, setActiveHighlight] = useLocalStorage('activeHighlight', null);
+  const [serverQuests, setServerQuests] = useState<Quest[]>([]);
+  const [questLoading, setQuestLoading] = useState(true);
 
   // ========== ИДЕНТИФИКАТОР ПОЛЬЗОВАТЕЛЯ ==========
   const [userId, setUserId] = useState<number | null>(() => {
@@ -132,6 +140,20 @@ export const QuestProvider = ({ children }: { children: React.ReactNode }) => {
     return () => clearTimeout(timer);
   }, [balance, budget, covers, completedQuests, currentQuestId, userId, isLoading]);
 
+  useEffect(() => {
+    const loadQuests = async () => {
+      try {
+        const questsFromServer = await fetchQuests();
+        setServerQuests(questsFromServer);
+      } catch (err) {
+        console.error('Ошибка загрузки квестов', err);
+      } finally {
+        setQuestLoading(false);
+      }
+    };
+    loadQuests();
+  }, []);
+
   // ========== ОСОБОЕ СОСТОЯНИЕ ==========
   const [questStep, setQuestStep] = useState<number>(
     saved.currentQuestId && saved.questProgressMap?.[saved.currentQuestId]
@@ -153,8 +175,8 @@ export const QuestProvider = ({ children }: { children: React.ReactNode }) => {
   // ========== ВЫЧИСЛЯЕМЫЕ ЗНАЧЕНИЯ ==========
   const level = Math.floor(balance / LEVEL_STEP);
   const progress = (balance % LEVEL_STEP) / LEVEL_STEP;
-  const currentQuest = (quests.find(q => q.id === currentQuestId) as Quest) ?? null;
-  const nextQuest = (quests.find(q => !completedQuests.includes(q.id)) as Quest) ?? null;
+  const currentQuest = serverQuests.find(q => q.id === currentQuestId) ?? null;
+  const nextQuest = serverQuests.find(q => !completedQuests.includes(q.id)) ?? null;
   const canDistribute = budget > 0;
 
   // ========== ФУНКЦИИ КВЕСТОВ ==========
@@ -172,7 +194,7 @@ export const QuestProvider = ({ children }: { children: React.ReactNode }) => {
 
   const completeQuest = (questId: number): void => {
     if (completedQuests.includes(questId)) return;
-    const quest = quests.find(q => q.id === questId) as Quest | undefined;
+    const quest = serverQuests.find(q => q.id === questId) as Quest | undefined;
     if (!quest) return;
 
     setCompletedQuests(prev => [...prev, questId]);
@@ -188,6 +210,18 @@ export const QuestProvider = ({ children }: { children: React.ReactNode }) => {
     setCurrentQuestId(null);
     setQuestStep(0);
     setActionState({});
+  };
+
+  const refreshQuests = async () => {
+    setQuestLoading(true);
+    try {
+      const questsFormServer = await fetchQuests();
+      setServerQuests(questsFormServer);
+    } catch (err) {
+      console.error('Ошибка обновления квестов:', err);
+    } finally {
+      setQuestLoading(false);
+    }
   };
 
   // ========== ПОДСВЕТКА ==========
@@ -261,6 +295,8 @@ export const QuestProvider = ({ children }: { children: React.ReactNode }) => {
         distributeBudget,
         createGoal,
         clearGoal,
+        serverQuests,
+        questsLoading: questLoading,
         goal,
         questStep,
         actionState,
@@ -275,6 +311,7 @@ export const QuestProvider = ({ children }: { children: React.ReactNode }) => {
         setQuestStep: handleSetQuestStep,
         setActionState,
         saveQuestProgress,
+        refreshQuests,
         startHighlight,
         stopHighlight,
         validateBudget: questValidation.validate,

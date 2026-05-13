@@ -1,3 +1,4 @@
+import { QUEST_POSITIONS } from '../constants/gameConstants';
 import { UserProgress } from '../types/quest.types';
 
 // Типы для ключей localStorage
@@ -121,4 +122,10 @@ export const clearToken = () => {
 
 export const isAuthenticated = () => {
   return !!loadToken();
+};
+
+export const getQuestPosition = (id: number): { x: string; y: string } => {
+  if (id <= 12) return QUEST_POSITIONS[id - 1];
+  const index = (id - 1) % 12;
+  return QUEST_POSITIONS[index];
 };

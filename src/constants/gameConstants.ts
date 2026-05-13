@@ -135,3 +135,18 @@ export type ActionType = (typeof ACTION_TYPES)[keyof typeof ACTION_TYPES];
 export type HighlightTarget = (typeof HIGHLIGHT_TARGETS)[keyof typeof HIGHLIGHT_TARGETS];
 export type QuestStatusType = (typeof QUEST_STATUS)[keyof typeof QUEST_STATUS];
 export type QuestTypeType = (typeof QUEST_TYPE)[keyof typeof QUEST_TYPE];
+
+export const QUEST_POSITIONS = [
+  { x: '7%', y: '10%' }, // квест 1
+  { x: '11%', y: '25%' }, // квест 2
+  { x: '19%', y: '29%' }, // квест 3
+  { x: '24%', y: '45%' }, // квест 4
+  { x: '31%', y: '60%' }, // квест 5
+  { x: '40%', y: '70%' }, // квест 6
+  { x: '47%', y: '55%' }, // квест 7
+  { x: '54%', y: '37%' }, // квест 8
+  { x: '61%', y: '20%' }, // квест 9
+  { x: '68%', y: '35%' }, // квест 10
+  { x: '75%', y: '50%' }, // квест 11
+  { x: '83%', y: '60%' }, // квест 12
+];

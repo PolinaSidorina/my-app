@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QuestContext, QuestContextValue } from '../../context/QuestContext';
 import { quests } from '../../data/quests';
+import { deleteQuest } from '../../services/api';
 import { Quest } from '../../types/quest.types';
 import AddCrystal from '../AddCrystal/AddCrystal';
 import Button from '../Button/Button';
@@ -17,13 +18,14 @@ import think from '../../img/think.svg';
 type MainQuestProps = {
   mode?: 'page' | 'modal';
   onClose?: () => void;
+  onEditQuest?: (quest: Quest) => void;
 };
 
 type IconMap = {
   [key: string]: string;
 };
 
-const MainQuest = function ({ mode = 'page', onClose }: MainQuestProps) {
+const MainQuest = function ({ mode = 'page', onClose, onEditQuest }: MainQuestProps) {
   const iconMap: IconMap = {
     [QUEST_TYPE.PLAY]: play,
     [QUEST_TYPE.LEARN]: learn,
@@ -32,7 +34,8 @@ const MainQuest = function ({ mode = 'page', onClose }: MainQuestProps) {
   };
 
   const context = useContext(QuestContext) as QuestContextValue;
-  const { currentQuest, setCurrentQuestId, questProgressMap, completedQuests } = context;
+  const { serverQuests, currentQuest, setCurrentQuestId, questProgressMap, completedQuests } =
+    context;
   const navigate = useNavigate();
 
   // Проверяем, все ли квесты пройдены
@@ -59,8 +62,8 @@ const MainQuest = function ({ mode = 'page', onClose }: MainQuestProps) {
   if (mode === 'modal') {
     quest = currentQuest;
   } else {
-    const foundQuest = quests.find(q => !completedQuests.includes(q.id));
-    quest = foundQuest || quests.find(q => q.id === 1) || null;
+    const foundQuest = serverQuests.find(q => !completedQuests.includes(q.id));
+    quest = foundQuest || serverQuests.find(q => q.id === 1) || null;
   }
 
   if (!quest) return null;
@@ -106,6 +109,19 @@ const MainQuest = function ({ mode = 'page', onClose }: MainQuestProps) {
     onClose?.();
   };
 
+  const handleDeleteQuest = async (questId: number) => {
+    if (!window.confirm('Вы уверены, что хотите удалить этот квест?')) return;
+    try {
+      await deleteQuest(questId);
+      if (context.refreshQuests) await context.refreshQuests();
+      onClose?.();
+      alert('Квест удален');
+    } catch (err) {
+      console.error(err);
+      alert('Ошибка при удалении квеста');
+    }
+  };
+
   // ============================================
   // 5. РЕНДЕР
   // ============================================
@@ -126,9 +142,29 @@ const MainQuest = function ({ mode = 'page', onClose }: MainQuestProps) {
 
         {/* Кнопка закрытия только в модалке */}
         {mode === 'modal' && (
-          <button className={styles.close} onClick={onClose}>
-            ✕
-          </button>
+          <div className={styles.questActions}>
+            <button
+              className={styles.editBtn}
+              onClick={e => {
+                e.stopPropagation();
+                onEditQuest?.(quest);
+              }}
+            >
+              ✏️
+            </button>
+            <button
+              className={styles.deleteBtn}
+              onClick={async e => {
+                e.stopPropagation();
+                await handleDeleteQuest(quest.id);
+              }}
+            >
+              🗑️
+            </button>
+            <button className={styles.close} onClick={onClose}>
+              ✕
+            </button>
+          </div>
         )}
       </div>
 
