@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/my-app/static/css/main.d69efbda.css",
-    "main.js": "/my-app/static/js/main.439fb1f8.js",
+    "main.css": "/my-app/static/css/main.f330e833.css",
+    "main.js": "/my-app/static/js/main.a47c8b14.js",
     "static/media/mascot.svg": "/my-app/static/media/mascot.b21230a496e50847fe4ec946eb5c909a.svg",
     "static/media/mascot_sad.svg": "/my-app/static/media/mascot_sad.8b32b2b94de0cd80c8268b4cf13073c0.svg",
     "static/media/gift_3.svg": "/my-app/static/media/gift_3.7907c4322954378c93c52b38e65b4e11.svg",
@@ -39,12 +39,14 @@
     "static/media/learn_l.svg": "/my-app/static/media/learn_l.3910fe6432dafccd5102c95fbe203f85.svg",
     "static/media/start.svg": "/my-app/static/media/start.52235bfc21902840594b2f72a79f314a.svg",
     "static/media/save.svg": "/my-app/static/media/save.c47cb16619b48fe92054df4188a41a07.svg",
+    "static/media/pen.svg": "/my-app/static/media/pen.d7e01533fbbf1aecbb66445f64218d9f.svg",
+    "static/media/trash.svg": "/my-app/static/media/trash.08510f5dcb9b84e2a679fb8075b48fe7.svg",
     "index.html": "/my-app/index.html",
-    "main.d69efbda.css.map": "/my-app/static/css/main.d69efbda.css.map",
-    "main.439fb1f8.js.map": "/my-app/static/js/main.439fb1f8.js.map"
+    "main.f330e833.css.map": "/my-app/static/css/main.f330e833.css.map",
+    "main.a47c8b14.js.map": "/my-app/static/js/main.a47c8b14.js.map"
   },
   "entrypoints": [
-    "static/css/main.d69efbda.css",
-    "static/js/main.439fb1f8.js"
+    "static/css/main.f330e833.css",
+    "static/js/main.a47c8b14.js"
   ]
 }
