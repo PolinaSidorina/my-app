@@ -1,7 +1,7 @@
 import styles from './Button.module.css';
 
 type ButtonProps = {
-  text: string;
+  text?: string;
   image?: string;
   onClick?: () => void;
   disabled?: boolean;

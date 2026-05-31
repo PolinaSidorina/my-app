@@ -11,7 +11,7 @@
   color: #00042d;
   font-family: 'Nunito';
   font-size: clamp(0.5rem, 1vw, 3rem);
-  height: clamp(1rem, 3.5vw, 7rem);
+  height: clamp(15px, 3.5vw, 7rem);
 }
 .imgContainer {
   width: clamp(1rem, 1.5vw, 3rem);

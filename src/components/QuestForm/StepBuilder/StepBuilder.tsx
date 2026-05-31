@@ -67,19 +67,17 @@ const StepBuilder = ({ steps, onChange }: StepBuilderProps) => {
             </div>
 
             {stepError && (
-              <div className={styles.stepErrorText}>
-                ⚠️ Заполните все обязательные поля этого шага
-              </div>
+              <div className={styles.stepErrorText}>Заполните все обязательные поля этого шага</div>
             )}
 
             <select value={step.type} onChange={e => updateStep(index, 'type', e.target.value)}>
-              <option value={STEP_TYPE.INFO}>📖 Информация</option>
-              <option value={STEP_TYPE.HIGHLIGHT}>✨ Подсветка</option>
-              <option value={STEP_TYPE.CHOICE}>❓ Выбор ответа</option>
-              <option value={STEP_TYPE.CALCULATION}>🔢 Ввод числа</option>
-              <option value={STEP_TYPE.ACTION}>🎬 Действие</option>
-              <option value={STEP_TYPE.STATS}>📊 Статистика</option>
-              <option value={STEP_TYPE.COMPLETE}>🏁 Завершение</option>
+              <option value={STEP_TYPE.INFO}>Информация</option>
+              <option value={STEP_TYPE.HIGHLIGHT}>Подсветка</option>
+              <option value={STEP_TYPE.CHOICE}>Выбор ответа</option>
+              <option value={STEP_TYPE.CALCULATION}>Ввод числа</option>
+              <option value={STEP_TYPE.ACTION}>Действие</option>
+              <option value={STEP_TYPE.STATS}>Статистика</option>
+              <option value={STEP_TYPE.COMPLETE}>Завершение</option>
             </select>
 
             {step.type !== STEP_TYPE.CHOICE && step.type !== STEP_TYPE.CALCULATION && (

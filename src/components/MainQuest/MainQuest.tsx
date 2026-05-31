@@ -10,10 +10,12 @@ import styles from '../MainQuest/MainQuest.module.css';
 
 import { QUEST_TYPE } from '../../constants/gameConstants';
 import learn from '../../img/learn.svg';
+import pen from '../../img/pen.svg';
 import plan from '../../img/plan.svg';
 import play from '../../img/play.svg';
 import StartIcon from '../../img/start.svg';
 import think from '../../img/think.svg';
+import trash from '../../img/trash.svg';
 
 type MainQuestProps = {
   mode?: 'page' | 'modal';
@@ -150,16 +152,16 @@ const MainQuest = function ({ mode = 'page', onClose, onEditQuest }: MainQuestPr
                 onEditQuest?.(quest);
               }}
             >
-              ✏️
+              <img src={pen} className={styles.icon} />
             </button>
             <button
-              className={styles.deleteBtn}
+              className={styles.editBtn}
               onClick={async e => {
                 e.stopPropagation();
                 await handleDeleteQuest(quest.id);
               }}
             >
-              🗑️
+              <img src={trash} className={styles.icon} />
             </button>
             <button className={styles.close} onClick={onClose}>
               ✕

@@ -195,7 +195,7 @@ const QuestForm = ({ onClose, initialQuest, onQuestCreated }: QuestFormProps) =>
 
   return (
     <div className={styles.formContainer}>
-      <h2>{isEdit ? '✏️ Редактировать квест' : '➕ Новый квест'}</h2>
+      <h2>{isEdit ? 'Редактировать квест' : 'Новый квест'}</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -233,10 +233,10 @@ const QuestForm = ({ onClose, initialQuest, onQuestCreated }: QuestFormProps) =>
         />
         {errors.reward && <div className={styles.errorText}>{errors.reward}</div>}
         <select value={type} onChange={e => setType(e.target.value)}>
-          <option value="learn">📚 Обучающий</option>
-          <option value="play">🎮 Игровой</option>
-          <option value="think">🧠 Логический</option>
-          <option value="plan">📋 Планирование</option>
+          <option value="learn">Обучающий</option>
+          <option value="play">Игровой</option>
+          <option value="think">Логический</option>
+          <option value="plan">Планирование</option>
         </select>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <input
