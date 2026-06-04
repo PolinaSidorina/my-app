@@ -85,6 +85,8 @@ npm test -- --coverage
 
 Сидорина Полина Андреевна, ННГУ им. Н.И. Лобачевского, 2026
 
+## Скрины проекта
+
 ![Главная страница](screenshots/home.png)
 ![Карта квестов](screenshots/quests.png)
 ![Страница бюджета](screenshots/budget.png)
