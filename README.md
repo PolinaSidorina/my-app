@@ -50,13 +50,21 @@ npm run deploy
 ## Структура проекта
 
 src/
+
 ├── components/ Переиспользуемые UI-компоненты
+
 ├── pages/ Страницы приложения
+
 ├── context/ Глобальное состояние (QuestContext)
+
 ├── hooks/ Кастомные хуки
+
 ├── services/ API-клиент
+
 ├── types/ TypeScript-типы
+
 ├── utils/ Вспомогательные функции
+
 └── constants/ Константы
 
 ## Тестирование
