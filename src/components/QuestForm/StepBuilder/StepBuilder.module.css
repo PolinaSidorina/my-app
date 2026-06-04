@@ -1,5 +1,17 @@
+@font-face {
+  src: url(../../../fonts/Nunito-Bold.ttf);
+  font-family: 'Nunito';
+}
+
 .stepBuilder {
   margin-top: 1rem;
+  font-family: 'Nunito';
+}
+
+.label {
+  color: #0f172a;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .stepCard {
@@ -38,13 +50,31 @@
 .stepError {
   border: 2px solid #ff4444;
   background: rgba(255, 68, 68, 0.05);
+  background: #5d62a0;
 }
 
 .stepErrorText {
   color: #ff4444;
+  border: 2px solid #ff4444;
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
   padding: 0.3rem;
-  background: rgba(255, 68, 68, 0.1);
+  background: #fff;
   border-radius: 4px;
+}
+
+.close {
+  all: unset;
+  cursor: pointer;
+
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+
+  width: 2.2rem;
+  height: 2.2rem;
+  line-height: 2.2rem;
+  text-align: center;
+
+  border-radius: 50%;
 }

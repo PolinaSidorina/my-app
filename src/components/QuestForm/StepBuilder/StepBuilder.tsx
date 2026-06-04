@@ -53,7 +53,7 @@ const StepBuilder = ({ steps, onChange }: StepBuilderProps) => {
 
   return (
     <div className={styles.stepBuilder}>
-      <label>Шаги квеста</label>
+      <div className={styles.label}>Шаги квеста</div>
       {steps.map((step, index) => {
         const stepError = hasStepError(step);
 
@@ -61,7 +61,7 @@ const StepBuilder = ({ steps, onChange }: StepBuilderProps) => {
           <div key={index} className={`${styles.stepCard} ${stepError ? styles.stepError : ''}`}>
             <div className={styles.stepHeader}>
               <span>Шаг {index + 1}</span>
-              <button type="button" onClick={() => removeStep(index)}>
+              <button className={styles.close} onClick={() => removeStep(index)}>
                 ✕
               </button>
             </div>

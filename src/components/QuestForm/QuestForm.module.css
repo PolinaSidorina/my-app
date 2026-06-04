@@ -56,3 +56,8 @@
   margin-bottom: 1rem;
   text-align: center;
 }
+.label {
+  color: #0f172a;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}

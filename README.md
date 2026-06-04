@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# Финиквест — Фронтенд
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Веб-приложение для обучения детей финансовой грамотности через игровые механики. Фронтенд-часть проекта.
 
-## Available Scripts
+## Демо
 
-In the project directory, you can run:
+https://polinasidorina.github.io/my-app
 
-### `npm start`
+## О проекте
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Финиквест — образовательная платформа для детей 9-13 лет, где в игровой форме осваиваются основы финансовой грамотности.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Основные возможности:
 
-### `npm test`
+- 12 интерактивных квестов с разными типами заданий
+- Система бюджетирования (4 конверта, правило 50-20-20-10)
+- Уровни и прогресс
+- Цели накоплений (копилка)
+- Интерактивный туториал с подсветкой
+- Админ-панель для создания и редактирования квестов
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Технологии
 
-### `npm run build`
+- React 18.2.0
+- TypeScript 4.9.5
+- React Router 6.30.3
+- CSS Modules
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Установка и запуск
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Требования:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Node.js 18.x или выше
+- npm 9.x или выше
 
-### `npm run eject`
+Установка зависимостей:
+npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Запуск в режиме разработки:
+npm start
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Приложение будет доступно по адресу: http://localhost:3000
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Сборка для продакшена:
+npm run build
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Деплой на GitHub Pages:
+npm run deploy
 
-## Learn More
+## Структура проекта
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+src/
+├── components/ Переиспользуемые UI-компоненты
+├── pages/ Страницы приложения
+├── context/ Глобальное состояние (QuestContext)
+├── hooks/ Кастомные хуки
+├── services/ API-клиент
+├── types/ TypeScript-типы
+├── utils/ Вспомогательные функции
+└── constants/ Константы
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Тестирование
 
-### Code Splitting
+Запуск тестов:
+npm test
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Запуск тестов с покрытием:
+npm test -- --coverage
 
-### Analyzing the Bundle Size
+## Связь с бэкендом
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Фронтенд взаимодействует с бэкендом через REST API. Базовый URL бэкенда указан в src/services/api.ts.
 
-### Making a Progressive Web App
+Для локальной разработки бэкенд должен быть запущен на порту 5000.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Автор
 
-### Advanced Configuration
+Сидорина Полина Андреевна, ННГУ им. Н.И. Лобачевского, 2026
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![Главная страница](screenshots/home.png)
+![Карта квестов](screenshots/quests.png)
+![Страница бюджета](screenshots/budget.png)
+![Панель создания квеста](screenshots/admin.png)
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

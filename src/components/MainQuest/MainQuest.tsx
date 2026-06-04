@@ -81,12 +81,6 @@ const MainQuest = function ({ mode = 'page', onClose, onEditQuest }: MainQuestPr
   const hasProgress =
     questProgressMap && questProgressMap[quest.id] !== undefined && questProgressMap[quest.id] > 0;
 
-  /**
-   * Определяем текст кнопки в зависимости от ситуации:
-   * - Если квест начат -> "Продолжить"
-   * - Если квест не начат -> "Начать"
-   * В модалке - краткий текст, на странице - с названием квеста
-   */
   const buttonText = isInProgress
     ? hasProgress
       ? `Продолжить квест`
@@ -95,14 +89,6 @@ const MainQuest = function ({ mode = 'page', onClose, onEditQuest }: MainQuestPr
       ? `Продолжить квест: «${quest.title}»`
       : `Начать квест: «${quest.title}»`;
 
-  // ============================================
-  // 4. ФУНКЦИИ-ОБРАБОТЧИКИ
-  // ============================================
-
-  /**
-   * Обработчик клика по кнопке действия
-   * Запускает или продолжает квест
-   */
   const handleAction = () => {
     if (!isInProgress && quest) {
       setCurrentQuestId(quest.id);
@@ -124,9 +110,6 @@ const MainQuest = function ({ mode = 'page', onClose, onEditQuest }: MainQuestPr
     }
   };
 
-  // ============================================
-  // 5. РЕНДЕР
-  // ============================================
   return (
     <div className={styles.mainQuestContainer}>
       {/* Верхняя часть с иконкой, заголовком и описанием */}
@@ -170,7 +153,6 @@ const MainQuest = function ({ mode = 'page', onClose, onEditQuest }: MainQuestPr
         )}
       </div>
 
-      {/* Нижняя часть с кнопками и наградой */}
       <div className={styles.buttonContainer}>
         {!isCompleted ? (
           // КВЕСТ НЕ ЗАВЕРШЕН - показываем кнопки управления

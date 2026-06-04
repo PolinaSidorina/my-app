@@ -197,9 +197,10 @@ const QuestForm = ({ onClose, initialQuest, onQuestCreated }: QuestFormProps) =>
     <div className={styles.formContainer}>
       <h2>{isEdit ? 'Редактировать квест' : 'Новый квест'}</h2>
       <form onSubmit={handleSubmit}>
+        <div className={styles.label}>Название квеста</div>
         <input
           type="text"
-          placeholder="Название квеста"
+          placeholder="Название"
           value={title}
           onChange={e => {
             setTitle(e.target.value);
@@ -209,6 +210,7 @@ const QuestForm = ({ onClose, initialQuest, onQuestCreated }: QuestFormProps) =>
           required
         />
         {errors.title && <div className={styles.errorText}>{errors.title}</div>}
+        <div className={styles.label}>Описание квеста</div>
         <textarea
           placeholder="Описание"
           value={description}
@@ -220,6 +222,7 @@ const QuestForm = ({ onClose, initialQuest, onQuestCreated }: QuestFormProps) =>
           required
         />
         {errors.description && <div className={styles.errorText}>{errors.description}</div>}
+        <div className={styles.label}>Награда</div>
         <input
           type="number"
           placeholder="Награда"
@@ -232,13 +235,14 @@ const QuestForm = ({ onClose, initialQuest, onQuestCreated }: QuestFormProps) =>
           required
         />
         {errors.reward && <div className={styles.errorText}>{errors.reward}</div>}
+        <div className={styles.label}>Тип квеста</div>
         <select value={type} onChange={e => setType(e.target.value)}>
           <option value="learn">Обучающий</option>
           <option value="play">Игровой</option>
           <option value="think">Логический</option>
           <option value="plan">Планирование</option>
         </select>
-        <div style={{ display: 'flex', gap: '1rem' }}>
+        {/* <div style={{ display: 'flex', gap: '1rem' }}>
           <input
             type="text"
             placeholder="X координата (например, 50%)"
@@ -253,7 +257,7 @@ const QuestForm = ({ onClose, initialQuest, onQuestCreated }: QuestFormProps) =>
             onChange={e => setY(e.target.value)}
             required
           />
-        </div>
+        </div> */}
         <StepBuilder steps={steps} onChange={setSteps} />
         {errors.steps && <div className={styles.errorText}>{errors.steps}</div>}
         {error && <div className={styles.error}>{error}</div>}
